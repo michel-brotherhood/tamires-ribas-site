@@ -34,10 +34,13 @@ const GLASS_RE = /glass|vidro|window|janela|glazing|crystal|transparent/i;
 /* Valores espelhados do estado "hero" da home (SCROLL_STATES[0]) para que a
    assinatura 3D das páginas internas tenha o MESMO enquadramento da home:
    mesma escala, mesma inclinação e o mesmo deslocamento lateral. */
-const SPIN_SPEED = 0.12; // rad/s — ✅ seguro ajustar
-const BASE_SCALE = 1.85; // = scale do hero
-const TILT_X = 0.08; // = rotation.x do hero
-const POS: [number, number, number] = [0.72, 0.02, 0.05]; // = position do hero
+// Monograma "TR": em vez de girar 360° (letras virariam de perfil), oscila
+// suavemente mantendo o símbolo sempre legível e de frente.
+const SWAY_AMPLITUDE = 0.42; // rad — quanto balança para cada lado
+const SWAY_SPEED = 0.5; // velocidade da oscilação
+const BASE_SCALE = 1.4; // = scale do hero (monograma)
+const TILT_X = 0.05; // = rotation.x do hero
+const POS: [number, number, number] = [0.5, 0.0, 0.05]; // = position do hero
 
 /* --- mesma correção de material da home --- */
 function fixMaterial(material: Material, meshName: string): Material {
@@ -73,12 +76,15 @@ function normalize(object: Object3D): void {
   object.position.set(-center.x * s, -center.y * s, -center.z * s);
 }
 
-/* --- rig: gira devagar para sempre, sem scroll/intro --- */
+/* --- rig: oscila suavemente para sempre (monograma fica sempre legível) --- */
 function SpinRig({ children }: { children: ReactNode }) {
   const group = useRef<Group>(null);
+  const t = useRef(0);
 
   useFrame((_, delta) => {
-    if (group.current) group.current.rotation.y += delta * SPIN_SPEED;
+    if (!group.current) return;
+    t.current += delta * SWAY_SPEED;
+    group.current.rotation.y = Math.sin(t.current) * SWAY_AMPLITUDE;
   });
 
   return (

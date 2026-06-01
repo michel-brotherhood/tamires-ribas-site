@@ -55,13 +55,15 @@ const MODEL_PATH = "/models/architecture.glb";
 
 /* --------- constantes de intro (✅ seguras para ajustar) --------- */
 const INTRO_DURATION = 2.0; // intro mais curta → scroll libera mais cedo
-const INTRO_Y_OFFSET = 1.6; // rotação extra inicial em radianos
+const INTRO_Y_OFFSET = 0.7; // rotação extra inicial (suave, monograma legível)
 const HERO_REVEAL_AT = 0.7; // segundo em que o texto do hero aparece
 const HERO_REVEAL_DURATION = 0.8;
 
-/* Rotação contínua ("assinatura") quando o usuário passa do <main> para o
-   portfólio — o modelo continua vivo até o fim da página. (rad/s) */
-const FREE_SPIN_SPEED = 0.12;
+/* "Assinatura" quando o usuário passa do <main> para o portfólio — o modelo
+   continua vivo. Para o monograma "TR", oscila suavemente (sem girar 360°, que
+   deixaria as letras de perfil). */
+const FREE_SWAY_AMPLITUDE = 0.42; // rad para cada lado
+const FREE_SWAY_SPEED = 0.5;
 
 /* materiais cujo nome indica vidro mantêm transparência */
 const GLASS_RE = /glass|vidro|window|janela|glazing|crystal|transparent/i;
@@ -148,15 +150,19 @@ function ModelRig({
   const introTl = useRef<gsap.core.Timeline | null>(null);
   const scrollTl = useRef<gsap.core.Timeline | null>(null);
   const introDone = useRef(false);
-  // Quando true, o modelo gira sozinho (área do portfólio em diante).
+  // Quando true, o modelo oscila sozinho (área do portfólio em diante).
   const freeSpin = useRef(false);
+  const swayT = useRef(0);
+  const swayBaseY = useRef(0); // rotation.y de referência ao entrar no portfólio
 
-  // Rotação contínua só enquanto freeSpin está ativo (ligado pelo ScrollTrigger
+  // Oscilação suave só enquanto freeSpin está ativo (ligado pelo ScrollTrigger
   // ao sair do <main>). Não conflita com a timeline: quando esta controla o
   // modelo, freeSpin está desligado.
   useFrame((_, delta) => {
     if (freeSpin.current && group.current) {
-      group.current.rotation.y += delta * FREE_SPIN_SPEED;
+      swayT.current += delta * FREE_SWAY_SPEED;
+      group.current.rotation.y =
+        swayBaseY.current + Math.sin(swayT.current) * FREE_SWAY_AMPLITUDE;
     }
   });
 
@@ -239,6 +245,9 @@ function ModelRig({
         // Ao passar do fim do <main> (entra no portfólio): liga a rotação livre.
         // Ao voltar para dentro do <main>: desliga (a timeline reassume).
         onLeave: () => {
+          // Começa a oscilar a partir do ângulo atual (transição suave).
+          swayBaseY.current = group.current?.rotation.y ?? 0;
+          swayT.current = 0;
           freeSpin.current = true;
         },
         onEnterBack: () => {

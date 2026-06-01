@@ -20,52 +20,58 @@ export type ScrollState = {
   scale: number;
 };
 
+// Estados ajustados para o MONOGRAMA "TR" (escultura extrudada).
+// A letra é alta e fina (frente em +Z): rotation.y fica perto de 0 para o "TR"
+// permanecer LEGÍVEL (nunca vira de perfil); sem o tombamento de 90° (que para
+// letras ficaria ilegível). Escalas menores que as de uma casa, pois a altura
+// do monograma é a maior dimensão.
 export const SCROLL_STATES: ScrollState[] = [
   {
     id: "hero",
-    position: [0.72, 0.02, 0.05],
-    rotation: [0.08, Math.PI - 0.7, 0.02],
-    scale: 1.85,
+    position: [0.5, 0.0, 0.05],
+    rotation: [0.05, -0.4, 0.02],
+    scale: 1.4,
   },
   {
     id: "concept",
-    position: [-0.55, 0.02, 0.42],
-    rotation: [0.04, Math.PI - 0.25, 0.01],
-    scale: 2.05,
+    position: [-0.45, 0.02, 0.3],
+    rotation: [0.04, 0.5, 0.01],
+    scale: 1.45,
   },
   {
     id: "facade",
-    position: [-0.15, -0.04, 0.2],
-    rotation: [0.02, Math.PI, 0],
-    scale: 1.9,
+    position: [-0.05, -0.02, 0.2],
+    rotation: [0.02, 0.0, 0],
+    scale: 1.5,
   },
   {
     id: "floorplan",
-    position: [0, 0.05, 0.35],
-    rotation: [Math.PI / 2 - 0.18, 0, Math.PI / 2],
-    scale: 1.75,
+    position: [0, 0.04, 0.3],
+    rotation: [0.5, -0.15, 0.02],
+    scale: 1.35,
   },
   {
     id: "materials",
-    position: [0.58, -0.03, 0.05],
-    rotation: [-0.08, -1.35, 0.12],
-    scale: 1.7,
+    position: [0.5, -0.02, 0.05],
+    rotation: [-0.1, -0.62, 0.05],
+    scale: 1.4,
   },
   {
     id: "final",
-    position: [-0.85, -0.02, 0.18],
-    rotation: [0.03, Math.PI - 0.42, -0.01],
-    scale: 1.9,
+    position: [-0.55, 0.0, 0.15],
+    rotation: [0.03, 0.42, -0.01],
+    scale: 1.5,
   },
 ];
 
 /* ------------------------------- Ajustes mobile -------------------------------- */
 
-/** Multiplica a escala de cada estado no mobile (modelo um pouco maior). */
-export const MOBILE_SCALE_FACTOR = 1.08;
+/** Encolhe a escala no mobile: o "TR" é alto e a faixa central do 3D é baixa,
+ *  então um fator < 1 evita que ele corte em cima/embaixo ao girar. */
+export const MOBILE_SCALE_FACTOR = 0.62;
 
 /** Suaviza o deslocamento horizontal no mobile (aproxima do centro). */
 export const MOBILE_POSITION_FACTOR = 0.12;
 
 /** Levanta o modelo dentro da faixa central da tela no mobile. */
-export const MOBILE_Y_OFFSET = 0.25;
+export const MOBILE_Y_OFFSET = 0.2;
