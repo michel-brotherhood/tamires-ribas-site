@@ -550,7 +550,16 @@ html.aurea-ready [data-section="hero"] .cta {
   color: rgba(17, 17, 17, 0.58);
 }
 
-/* Em telas baixas não há espaço para o indicador sem colidir com o CTA. */
+/* Indicador é só desktop: no mobile/tablet o CTA fica logo acima da base e o
+   "Role para explorar" colidiria com o botão. O bobbing do triângulo (TR dock)
+   já serve de convite ao scroll no celular. */
+@media (max-width: 1024px) {
+  .scroll-hint {
+    display: none;
+  }
+}
+
+/* Em telas baixas (desktop curto) também não há espaço sem colidir com o CTA. */
 @media (max-height: 760px) {
   .scroll-hint {
     display: none;
@@ -2261,9 +2270,11 @@ html.aurea-ready [data-section="hero"] .cta {
    ============================================================================ */
 @media (max-width: 1024px) {
   .scene-fixed {
-    top: 30dvh;
+    /* Faixa central um pouco mais alta (46dvh) e levemente subida, para o
+       monograma maior (MOBILE_SCALE_FACTOR) respirar sem cortar nas pontas. */
+    top: 28dvh;
     bottom: auto;
-    height: 42dvh;
+    height: 46dvh;
   }
 
   .section {
@@ -2273,9 +2284,9 @@ html.aurea-ready [data-section="hero"] .cta {
     padding: 14dvh 6vw 4dvh 6vw;
   }
 
-  /* Espaço reservado para a faixa do modelo (mesma unidade da banda). */
+  /* Espaço reservado para a faixa do modelo (acompanha a banda mais alta). */
   .section :is(h1, h2) {
-    margin-bottom: 42dvh;
+    margin-bottom: 44dvh;
   }
 
   [data-section="final"] h2 {
@@ -2283,7 +2294,7 @@ html.aurea-ready [data-section="hero"] .cta {
   }
 
   [data-section="final"] > div:first-child {
-    margin-top: 58dvh;
+    margin-top: 60dvh;
   }
 }
 
@@ -2335,15 +2346,15 @@ html.aurea-ready [data-section="hero"] .cta {
    ---------------------------------------------------------------------------- */
 @media (max-width: 1024px) and (max-height: 560px) {
   .scene-fixed {
-    top: 26dvh;
-    height: 38dvh;
+    top: 25dvh;
+    height: 41dvh;
   }
 
   .section :is(h1, h2) {
-    margin-bottom: 38dvh;
+    margin-bottom: 40dvh;
   }
 
   [data-section="final"] > div:first-child {
-    margin-top: 52dvh;
+    margin-top: 54dvh;
   }
 }

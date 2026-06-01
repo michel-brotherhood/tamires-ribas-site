@@ -67,8 +67,10 @@ export const SCROLL_STATES: ScrollState[] = [
 /* ------------------------------- Ajustes mobile -------------------------------- */
 
 /** Encolhe a escala no mobile: o "TR" é alto e a faixa central do 3D é baixa,
- *  então um fator < 1 evita que ele corte em cima/embaixo ao girar. */
-export const MOBILE_SCALE_FACTOR = 0.62;
+ *  então um fator < 1 evita que ele corte em cima/embaixo ao girar. Mantido um
+ *  pouco mais generoso (0.70) com a faixa central também mais alta no CSS, para
+ *  o monograma ganhar presença no celular sem cortar nas pontas. */
+export const MOBILE_SCALE_FACTOR = 0.7;
 
 /** Suaviza o deslocamento horizontal no mobile (aproxima do centro). */
 export const MOBILE_POSITION_FACTOR = 0.12;
