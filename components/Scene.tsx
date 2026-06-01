@@ -24,9 +24,14 @@ import {
   SRGBColorSpace,
 } from "three";
 import ArchitectureModel from "./ArchitectureModel";
+import LogoTestModel from "./LogoTestModel";
 import ProceduralEnvironment from "./ProceduralEnvironment";
 
 const MOBILE_QUERY = "(max-width: 1024px)";
+
+/* 🧪 TESTE: true = usa a logo da marca (plano texturizado) no lugar do GLB.
+   Volte para false para restaurar o modelo arquitetônico (architecture.glb). */
+const USE_LOGO_TEST = true;
 
 /* ✅ SEGURO AJUSTAR: exposição do tonemapping (1.2 – 1.28 no spec). */
 const TONE_MAPPING_EXPOSURE = 1.25;
@@ -83,7 +88,11 @@ export default function Scene() {
           <Environment preset="apartment" environmentIntensity={1.15} />
         )}
 
-        <ArchitectureModel isMobile={isMobile} />
+        {USE_LOGO_TEST ? (
+          <LogoTestModel isMobile={isMobile} />
+        ) : (
+          <ArchitectureModel isMobile={isMobile} />
+        )}
       </Suspense>
     </Canvas>
   );

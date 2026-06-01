@@ -139,7 +139,7 @@ function adaptState(state: ScrollState, isMobile: boolean): ScrollState {
    Recebe o conteúdo visual já normalizado como children.
    ============================================================================ */
 
-function ModelRig({
+export function ModelRig({
   isMobile,
   children,
 }: {
