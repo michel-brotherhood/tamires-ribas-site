@@ -2300,6 +2300,12 @@ html.aurea-ready [data-section="hero"] .cta {
     margin-bottom: 44dvh;
   }
 
+  /* No HERO o monograma TR não ocupa toda a faixa: encurta a reserva para subir
+     o texto/CTA e fechar o vão, ainda mantendo folga abaixo do modelo. */
+  .section[data-section="hero"] h1 {
+    margin-bottom: 36dvh;
+  }
+
   [data-section="final"] h2 {
     margin-bottom: 0.5rem;
   }
