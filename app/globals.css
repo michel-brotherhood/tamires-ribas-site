@@ -34,6 +34,17 @@ body {
 html {
   /* Rolagem suave em cliques de âncora (nav, teaser, "voltar ao início"). */
   scroll-behavior: smooth;
+  /* Esconde a barra de rolagem mantendo o scroll funcional (Firefox / Edge). */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Esconde a barra de rolagem no Chrome / Safari / Edge (mantém o scroll). */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 /* Respeita quem prefere menos movimento. */
