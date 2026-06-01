@@ -2,13 +2,14 @@
  * make-sample-glb.mjs
  * -----------------------------------------------------------------------------
  * Gera o modelo 3D de fundo em public/models/architecture.glb usando o three já
- * instalado. Conceito: VILLA CONTEMPORÂNEA ACONCHEGANTE — alinhada à marca TR
- * Arquitetura e Interiores ("a sua casa", aconchegante, atemporal, alto padrão).
+ * instalado. Conceito: MAQUETE ARQUITETÔNICA BRANCA SOBRE BASE — estilo
+ * editorial/conceitual, fiel a "Muito Além de um Projeto" (o projeto vira
+ * protagonista, como um objeto de estúdio sobre um plinto).
  *
- * Características: massa horizontal e baixa, MADEIRA QUENTE dominante (ripado/
- * brises), grandes panos de vidro, laje fina em balanço (cantilever) e base com
- * deck + faixa de jardim. Estilizado em geometrias — para algo fotorrealista,
- * basta substituir este .glb por um feito por artista 3D (mesmo caminho/nome).
+ * Estética "clay/study model": tudo branco fosco (espuma/impressão 3D), aberturas
+ * como vazios recessados (sem vidro), pousado sobre uma base taupe que faz o
+ * contraste de "objeto sobre pedestal". Para algo fotorrealista, basta substituir
+ * este .glb por um feito por artista 3D (mesmo caminho/nome).
  *
  * Uso:  node scripts/make-sample-glb.mjs
  * -----------------------------------------------------------------------------
@@ -45,25 +46,13 @@ const { GLTFExporter } = await import(
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(__dirname, "..", "public", "models", "architecture.glb");
 
-/* ---------------------- paleta TR (quente e sóbria) ---------------------- */
-const woodWarm = new THREE.MeshStandardMaterial({ color: 0xb8854e, roughness: 0.55, metalness: 0.05 }); // madeira dominante
-const woodDark = new THREE.MeshStandardMaterial({ color: 0x8a5f34, roughness: 0.6, metalness: 0.05 });  // ripado/brise
-const taupe = new THREE.MeshStandardMaterial({ color: 0x827b6f, roughness: 0.85, metalness: 0 });       // taupe da marca
-const cream = new THREE.MeshStandardMaterial({ color: 0xece7dc, roughness: 0.8, metalness: 0 });        // volume claro
-const stone = new THREE.MeshStandardMaterial({ color: 0xb8ad99, roughness: 0.9, metalness: 0 });        // base/pedra
-const slab = new THREE.MeshStandardMaterial({ color: 0xd8d2c4, roughness: 0.85, metalness: 0 });        // laje fina
-const garden = new THREE.MeshStandardMaterial({ color: 0x8f9c7f, roughness: 1, metalness: 0 });         // faixa de jardim
-const water = new THREE.MeshStandardMaterial({ color: 0x9fb4b8, roughness: 0.25, metalness: 0.1 });     // espelho d'água
-
-// Vidro: nome contém "glass" → a correção de material no app mantém transparente.
-const glass = new THREE.MeshStandardMaterial({
-  name: "glass",
-  color: 0xd7e3e2,
-  transparent: true,
-  opacity: 0.3,
-  roughness: 0.08,
-  metalness: 0,
-});
+/* ----------------------- paleta de maquete (branca) ----------------------- */
+// Maquete: branco fosco dominante. Base: taupe claro (contraste de pedestal).
+const white = new THREE.MeshStandardMaterial({ color: 0xf2efe9, roughness: 0.9, metalness: 0 });   // massas
+const whiteSoft = new THREE.MeshStandardMaterial({ color: 0xeae6dd, roughness: 0.92, metalness: 0 }); // lajes/terreno
+const recess = new THREE.MeshStandardMaterial({ color: 0xddd7cb, roughness: 1, metalness: 0 });     // vazios/aberturas
+const baseMat = new THREE.MeshStandardMaterial({ color: 0x9c9486, roughness: 0.95, metalness: 0 }); // plinto taupe-claro
+const tree = new THREE.MeshStandardMaterial({ color: 0xf2efe9, roughness: 0.9, metalness: 0 });     // arvoretas brancas
 
 /* ------------------------------- helpers --------------------------------- */
 function box(w, h, d, mat, x, y, z, name) {
@@ -72,53 +61,63 @@ function box(w, h, d, mat, x, y, z, name) {
   if (name) m.name = name;
   return m;
 }
-
-/* ------------------------------- a villa --------------------------------- */
-// Proporções em "metros"; o app normaliza para ~1 unidade automaticamente.
-// Villa horizontal: térreo amplo em vidro/madeira + volume superior recuado
-// revestido em madeira, com laje fina em balanço sobre o deck.
-const villa = new THREE.Group();
-villa.name = "TR_villa";
-
-/* --- terreno: deck de madeira + faixa de jardim + espelho d'água --- */
-villa.add(box(13.0, 0.3, 8.0, stone, 0, -2.35, 0, "terreno"));
-villa.add(box(7.5, 0.12, 4.6, woodWarm, -0.5, -2.16, 1.6, "deck"));
-villa.add(box(12.4, 0.06, 1.4, garden, 0, -2.14, -2.9, "jardim"));
-villa.add(box(4.2, 0.05, 1.6, water, 4.0, -2.16, 1.8, "espelho_dagua"));
-
-/* --- térreo: volume baixo, recuado, leve (estar social) --- */
-villa.add(box(8.4, 2.7, 4.8, cream, -0.4, -0.75, 0, "terreo"));
-// laje de piso do térreo (fina, em leve balanço sobre o deck)
-villa.add(box(9.6, 0.22, 5.6, slab, 0, -2.0, 0.2, "laje_piso"));
-
-/* --- volume superior: caixa de MADEIRA recuada e deslocada --- */
-villa.add(box(6.6, 2.5, 4.2, woodWarm, 0.9, 1.5, -0.3, "volume_madeira"));
-
-/* --- laje de cobertura fina em BALANÇO (cantilever) --- */
-villa.add(box(11.2, 0.3, 6.4, slab, 0.3, 2.95, 0.1, "laje_cobertura_balanco"));
-// pingo/sombra: segunda laje fina sobre o térreo (marca horizontal)
-villa.add(box(10.2, 0.18, 5.8, slab, -0.1, 0.65, 0.15, "laje_intermediaria"));
-
-/* --- brises/ripado de madeira (textura quente repetida na fachada sup.) --- */
-for (let i = 0; i < 9; i++) {
-  const x = -1.9 + i * 0.62;
-  villa.add(box(0.12, 2.3, 0.12, woodDark, x + 0.9, 1.5, 1.95, `brise_${i}`));
+function cyl(rt, rb, h, mat, x, y, z, name) {
+  const m = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, 14), mat);
+  m.position.set(x, y, z);
+  if (name) m.name = name;
+  return m;
 }
 
-/* --- pilar/lâmina de pedra (ancora o conjunto, contraponto) --- */
-villa.add(box(0.45, 5.4, 0.9, stone, -4.4, 0.1, -0.6, "lamina_pedra"));
+/* ------------------------------ a maquete -------------------------------- */
+// Proporções em "metros"; o app normaliza para ~1 unidade automaticamente.
+const maquete = new THREE.Group();
+maquete.name = "TR_maquete";
 
-/* --- grandes panos de VIDRO (estar térreo + volume superior + lateral) --- */
-villa.add(box(7.6, 2.4, 0.06, glass, -0.4, -0.78, 2.45, "glass_estar"));
-villa.add(box(6.0, 2.1, 0.06, glass, 0.9, 1.5, 1.85, "glass_superior"));
-villa.add(box(0.06, 2.3, 4.2, glass, 3.6, -0.78, 0, "glass_lateral"));
+/* --- PLINTO / base (pedestal editorial) --- */
+maquete.add(box(11.0, 1.1, 8.0, baseMat, 0, -3.05, 0, "plinto"));
+// borda fina no topo do plinto (lábio sutil)
+maquete.add(box(11.2, 0.12, 8.2, whiteSoft, 0, -2.46, 0, "plinto_topo"));
+
+/* --- terreno/base do projeto (branco, sobre o plinto) --- */
+maquete.add(box(9.2, 0.3, 6.4, whiteSoft, 0, -2.28, 0, "terreno"));
+
+/* --- volume térreo: massa horizontal branca --- */
+maquete.add(box(7.4, 2.4, 4.6, white, -0.5, -0.95, 0, "terreo"));
+
+/* --- laje fina entre pavimentos (marca horizontal) --- */
+maquete.add(box(9.0, 0.22, 5.4, whiteSoft, -0.1, 0.35, 0.1, "laje_intermediaria"));
+
+/* --- volume superior: caixa recuada e deslocada --- */
+maquete.add(box(5.6, 2.2, 3.8, white, 0.9, 1.6, -0.3, "volume_superior"));
+
+/* --- laje de cobertura fina em leve balanço --- */
+maquete.add(box(9.6, 0.26, 5.8, whiteSoft, 0.2, 2.85, 0.1, "laje_cobertura"));
+
+/* --- detalhes de massa (escada externa + lâmina de parede) --- */
+// escada (degraus escalonados)
+for (let i = 0; i < 5; i++) {
+  maquete.add(box(1.6, 0.2, 0.5, white, -4.3, -2.0 + i * 0.2, 2.2 - i * 0.45, `degrau_${i}`));
+}
+// lâmina de parede vertical (ancora a composição)
+maquete.add(box(0.3, 3.6, 2.2, white, 3.5, -0.4, -1.0, "lamina_parede"));
+
+/* --- aberturas como VAZIOS recessados (planos recuados, branco mais escuro) --- */
+maquete.add(box(5.4, 1.7, 0.05, recess, -0.5, -0.95, 2.32, "vazio_terreo"));   // estar térreo
+maquete.add(box(3.8, 1.5, 0.05, recess, 0.9, 1.6, 1.62, "vazio_superior"));     // janela superior
+maquete.add(box(0.05, 1.6, 2.6, recess, 3.18, -0.95, 0, "vazio_lateral"));      // rasgo lateral
+
+/* --- arvoretas de maquete (charme editorial, discretas) --- */
+maquete.add(cyl(0.05, 0.07, 0.5, white, -3.6, -2.0, -2.0, "tronco_1"));
+maquete.add(new THREE.Mesh(new THREE.SphereGeometry(0.42, 16, 12), tree).translateX(-3.6).translateY(-1.5).translateZ(-2.0));
+maquete.add(cyl(0.05, 0.07, 0.4, white, 3.9, -2.0, 2.4, "tronco_2"));
+maquete.add(new THREE.Mesh(new THREE.SphereGeometry(0.34, 16, 12), tree).translateX(3.9).translateY(-1.55).translateZ(2.4));
 
 /* ------------------------------ exportar --------------------------------- */
 mkdirSync(path.dirname(OUT), { recursive: true });
 
 const exporter = new GLTFExporter();
 exporter.parse(
-  villa,
+  maquete,
   (result) => {
     const buffer = Buffer.from(result);
     writeFileSync(OUT, buffer);
