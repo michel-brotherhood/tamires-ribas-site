@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ContactForm from "@/components/ContactForm";
-import AmbientSceneClient from "@/components/AmbientSceneClient";
+import VideoBackground from "@/components/VideoBackground";
+import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 
 export const metadata: Metadata = {
@@ -14,7 +15,12 @@ export const metadata: Metadata = {
 export default function ContatoPage() {
   return (
     <div className="has-ambient">
-      <AmbientSceneClient />
+      <VideoBackground
+        mode="ambient"
+        src="/video/videosite2.2.mp4"
+        poster="/video/videosite2.2-poster.webp"
+      />
+      <ScrollReveal />
       <SiteHeader />
 
       <main className="page">
@@ -30,7 +36,7 @@ export default function ContatoPage() {
         </header>
 
         <section className="contact-grid">
-          <div className="contact-info">
+          <div data-reveal className="contact-info">
             <div className="contact-item">
               <span className="contact-label">WhatsApp</span>
               <a
@@ -55,7 +61,7 @@ export default function ContatoPage() {
             </div>
           </div>
 
-          <div className="contact-form-card">
+          <div data-reveal className="contact-form-card">
             <ContactForm />
           </div>
         </section>

@@ -2207,25 +2207,10 @@ html.aurea-ready [data-section="hero"] .cta {
 }
 
 /* ============================================================================
-   LAYOUT DA CENA 3D + SEÇÕES
-   ⚠️  NÃO ALTERAR sem cuidado: estas regras coordenam o canvas fixo com o
-       empilhamento das seções. Mexer aqui pode causar sobreposição texto/3D.
+   LAYOUT DO FUNDO EM VÍDEO + SEÇÕES
+   ⚠️  NÃO ALTERAR sem cuidado: estas regras coordenam o fundo fixo (.video-bg)
+       com o empilhamento das seções. Mexer aqui pode sobrepor texto/vídeo.
    ============================================================================ */
-.scene-fixed {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh; /* acompanha a área visível no mobile (barra do navegador) */
-  z-index: 0;
-  pointer-events: none;
-  /* Promove o canvas a uma camada própria de GPU: durante o scroll o
-     navegador não precisa repintar a cena, deixando a rolagem mais fluida. */
-  transform: translateZ(0);
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
 .section-stack {
   position: relative;
   z-index: 10;
@@ -2241,6 +2226,180 @@ html.aurea-ready [data-section="hero"] .cta {
   /* Respiro vertical: impede que o conteúdo centralizado deslize sob o header
      fixo (topo) ou sobre o indicador de scroll (base) no desktop. */
   padding: 13vh 8vw;
+}
+
+/* ============================================================================
+   FUNDO EM VÍDEO (substitui a cena 3D) — camada + sombreado
+   • .video-bg        → camada fixa em tela cheia, atrás de tudo (z-0).
+   • .video-bg__scrim → "sombreado": lavagem quente (legibilidade do texto
+                        escuro) + vinheta taupe (glamour cinematográfico) +
+                        ancoragem na base. Tons da própria marca — sem preto
+                        chapado — para combinar com a identidade bege/taupe.
+   ✅ SEGURO AJUSTAR: as opacidades dos gradientes abaixo controlam o quanto o
+      vídeo "aparece" vs. o quanto o texto ganha contraste.
+   ============================================================================ */
+.video-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--bg); /* fallback enquanto o vídeo decodifica o 1º quadro */
+  transform: translateZ(0);
+  transform-origin: center;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.video-bg__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-bg__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* HERO (home) — vídeo bem presente, com sombreado glamouroso. */
+.video-bg--hero .video-bg__scrim {
+  background:
+    /* vinheta taupe (cantos) → moldura cinematográfica */
+    radial-gradient(
+      120% 120% at 50% 38%,
+      rgba(244, 241, 234, 0) 46%,
+      rgba(202, 191, 171, 0.26) 78%,
+      rgba(130, 123, 111, 0.44) 100%
+    ),
+    /* ancoragem na base + leve respiro no topo (sob o header) */
+    linear-gradient(
+      to bottom,
+      rgba(26, 23, 18, 0.1) 0%,
+      rgba(26, 23, 18, 0) 18%,
+      rgba(26, 23, 18, 0) 64%,
+      rgba(130, 123, 111, 0.3) 100%
+    ),
+    /* lavagem creme → o texto escuro respira sobre o vídeo */
+    linear-gradient(
+      to bottom,
+      rgba(244, 241, 234, 0.42) 0%,
+      rgba(244, 241, 234, 0.2) 32%,
+      rgba(244, 241, 234, 0.22) 66%,
+      rgba(202, 191, 171, 0.42) 100%
+    );
+}
+
+/* AMBIENTE (páginas internas) — bem mais discreto: o conteúdo manda. */
+.video-bg--ambient .video-bg__media {
+  opacity: 0.5;
+}
+
+.video-bg--ambient .video-bg__scrim {
+  background:
+    radial-gradient(
+      120% 120% at 50% 30%,
+      rgba(202, 191, 171, 0) 50%,
+      rgba(130, 123, 111, 0.32) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(202, 191, 171, 0.62),
+      rgba(244, 241, 234, 0.58)
+    );
+}
+
+@media (max-width: 1024px) {
+  .video-bg--ambient .video-bg__media {
+    opacity: 0.35;
+  }
+}
+
+/* Legibilidade do texto sobre o vídeo vem do scrim (acima), sem brilho/halo
+   na fonte — mantém o texto limpo e nítido. */
+
+/* ============================================================================
+   REVEAL AO ROLAR ([data-reveal])
+   Escondido por padrão e revelado por JS (ScrollReveal) ao entrar na viewport.
+   Evita "flash" sem depender da ordem de execução. Com prefers-reduced-motion,
+   o conteúdo aparece normalmente (sem animação). O conteúdo permanece no DOM
+   para leitores de tela e indexação.
+   ============================================================================ */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ============================================================================
+   CONTRASTE DO TEXTO SOBRE O VÍDEO
+   O cinza --muted do corpo não passa no WCAG AA sobre o vídeo claro (~3:1).
+   Nestes contextos (home com vídeo e páginas internas com fundo de vídeo),
+   escurecemos corpo e eyebrow para garantir leitura confortável (>= 4.5:1),
+   sem perder a leveza do design. ✅ SEGURO AJUSTAR: os tons abaixo.
+   ============================================================================ */
+.section-stack--video .body-text,
+.has-ambient .body-text {
+  color: #2f2b25;
+}
+
+.section-stack--video .eyebrow,
+.has-ambient .eyebrow {
+  color: rgba(26, 23, 18, 0.86);
+}
+
+/* PROTEÇÃO DE TEXTO LOCALIZADA: um brilho creme bem difuso ATRÁS da coluna de
+   texto garante contraste em qualquer quadro do vídeo, sem escurecer a cena
+   toda. Posicionado no lado onde o texto fica (justify-start = esquerda;
+   justify-end = direita). z-index:-1 → fica entre o vídeo e o texto.
+   ✅ SEGURO AJUSTAR: opacidades/raio do radial. */
+.section-stack--video .section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    64% 88% at 24% 50%,
+    rgba(244, 241, 234, 0.58) 0%,
+    rgba(244, 241, 234, 0.32) 46%,
+    rgba(244, 241, 234, 0) 80%
+  );
+}
+
+.section-stack--video .section.justify-end::before {
+  background: radial-gradient(
+    64% 88% at 76% 50%,
+    rgba(244, 241, 234, 0.58) 0%,
+    rgba(244, 241, 234, 0.32) 46%,
+    rgba(244, 241, 234, 0) 80%
+  );
+}
+
+@media (max-width: 1024px) {
+  /* No mobile o texto começa no topo da seção — concentra o brilho lá em cima. */
+  .section-stack--video .section::before,
+  .section-stack--video .section.justify-end::before {
+    background: radial-gradient(
+      90% 46% at 50% 26%,
+      rgba(244, 241, 234, 0.52) 0%,
+      rgba(244, 241, 234, 0.26) 50%,
+      rgba(244, 241, 234, 0) 80%
+    );
+  }
 }
 
 /* ============================================================================
@@ -2277,17 +2436,9 @@ html.aurea-ready [data-section="hero"] .cta {
 
 /* ============================================================================
    RESPONSIVO — MOBILE / TABLET (<= 1024px)
-   Canvas vai para a faixa central; texto fica acima/abaixo dele.
+   Fundo em vídeo em tela cheia; o texto empilha por cima.
    ============================================================================ */
 @media (max-width: 1024px) {
-  .scene-fixed {
-    /* Faixa central um pouco mais alta (46dvh) e levemente subida, para o
-       monograma maior (MOBILE_SCALE_FACTOR) respirar sem cortar nas pontas. */
-    top: 28dvh;
-    bottom: auto;
-    height: 46dvh;
-  }
-
   .section {
     flex-direction: column;
     align-items: flex-start;
@@ -2295,15 +2446,11 @@ html.aurea-ready [data-section="hero"] .cta {
     padding: 14dvh 6vw 4dvh 6vw;
   }
 
-  /* Espaço reservado para a faixa do modelo (acompanha a banda mais alta). */
+  /* Fundo em VÍDEO ocupa a tela cheia atrás do conteúdo: o texto flui
+     naturalmente sobre o vídeo (legibilidade via scrim), sem a antiga reserva
+     de faixa central do 3D. */
   .section :is(h1, h2) {
-    margin-bottom: 44dvh;
-  }
-
-  /* No HERO o monograma TR não ocupa toda a faixa: encurta a reserva para subir
-     o texto/CTA e fechar o vão, ainda mantendo folga abaixo do modelo. */
-  .section[data-section="hero"] h1 {
-    margin-bottom: 36dvh;
+    margin-bottom: 1.75rem;
   }
 
   [data-section="final"] h2 {
@@ -2311,7 +2458,7 @@ html.aurea-ready [data-section="hero"] .cta {
   }
 
   [data-section="final"] > div:first-child {
-    margin-top: 60dvh;
+    margin-top: 0;
   }
 }
 
@@ -2357,21 +2504,3 @@ html.aurea-ready [data-section="hero"] .cta {
   }
 }
 
-/* ----------------------------------------------------------------------------
-   PAISAGEM em telas baixas (ex.: celular deitado): encolhe a faixa do modelo
-   e o respiro, para texto e 3D caberem na altura reduzida.
-   ---------------------------------------------------------------------------- */
-@media (max-width: 1024px) and (max-height: 560px) {
-  .scene-fixed {
-    top: 25dvh;
-    height: 41dvh;
-  }
-
-  .section :is(h1, h2) {
-    margin-bottom: 40dvh;
-  }
-
-  [data-section="final"] > div:first-child {
-    margin-top: 54dvh;
-  }
-}

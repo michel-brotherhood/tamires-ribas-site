@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import LoadingScreen from "@/components/LoadingScreen";
-import SceneClient from "@/components/SceneClient";
+import VideoBackground from "@/components/VideoBackground";
 import ScrollSections from "@/components/ScrollSections";
 import HomeShowcase from "@/components/HomeShowcase";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
@@ -14,8 +14,13 @@ export default function Home() {
       {/* Header fixo (pointer-events controlado internamente). */}
       <Header />
 
-      {/* Cena 3D fixa em tela cheia (lazy chunk, ssr:false). */}
-      <SceneClient />
+      {/* Fundo em vídeo cinematográfico, fixo em tela cheia, com efeito de
+          scroll "ida e volta" (rola → avança / volta → rebobina). */}
+      <VideoBackground
+        mode="hero"
+        src="/video/videosite2.2.mp4"
+        poster="/video/videosite2.2-poster.webp"
+      />
 
       {/* Conteúdo editorial: 6 seções de 100vh empilhadas sobre o canvas. */}
       <ScrollSections />
