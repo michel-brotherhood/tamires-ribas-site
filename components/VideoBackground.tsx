@@ -125,7 +125,10 @@ export default function VideoBackground({
         t: 1,
         ease: "none",
         scrollTrigger: {
-          trigger: mode === "hero" ? "main" : document.body,
+          // Vídeo dirigido pela rolagem da PÁGINA INTEIRA (interligado): aparece
+          // no herói, o conteúdo creme o cobre no meio, e ele reaparece atrás do
+          // portfólio e abaixo — tudo na mesma reprodução contínua.
+          trigger: document.documentElement,
           start: "top top",
           end: "bottom bottom",
           scrub: SMOOTH,

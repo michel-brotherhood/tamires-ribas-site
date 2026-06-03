@@ -1,7 +1,8 @@
 import Header from "@/components/Header";
 import LoadingScreen from "@/components/LoadingScreen";
 import VideoBackground from "@/components/VideoBackground";
-import ScrollSections from "@/components/ScrollSections";
+import Hero from "@/components/Hero";
+import HomeIntro from "@/components/HomeIntro";
 import HomeShowcase from "@/components/HomeShowcase";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 
@@ -14,19 +15,21 @@ export default function Home() {
       {/* Header fixo (pointer-events controlado internamente). */}
       <Header />
 
-      {/* Fundo em vídeo cinematográfico, fixo em tela cheia, com efeito de
-          scroll "ida e volta" (rola → avança / volta → rebobina). */}
+      {/* Vídeo cinematográfico do HERÓI: fixo atrás da 1ª dobra; scrub localizado
+          (ver VideoBackground, trigger #hero). O conteúdo sólido o cobre ao rolar. */}
       <VideoBackground
         mode="hero"
         src="/video/videosite2.2.mp4"
         poster="/video/videosite2.2-poster.webp"
       />
 
-      {/* Conteúdo editorial: 6 seções de 100vh empilhadas sobre o canvas. */}
-      <ScrollSections />
+      {/* 1ª dobra: título claro sobre o vídeo. */}
+      <Hero />
 
-      {/* Projetos, depoimentos e contato — fora do <main>, fundo sólido, para
-          não interferir na timeline 3D do ScrollTrigger. */}
+      {/* Conteúdo editorial em creme + faixas de vídeo (cobre o vídeo do herói). */}
+      <HomeIntro />
+
+      {/* Portfólio, depoimentos e contato — bloco taupe escuro (texto claro). */}
       <HomeShowcase />
 
       {/* Botão flutuante de WhatsApp com mini-chatbot. */}
