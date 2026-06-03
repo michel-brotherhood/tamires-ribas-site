@@ -1,23 +1,27 @@
 /**
  * ScrollSections.tsx
  * -----------------------------------------------------------------------------
- * As 6 seções editoriais (100vh cada) que ficam empilhadas SOBRE o canvas 3D.
- * O <main> é o trigger único do ScrollTrigger (ver ArchitectureModel.tsx).
+ * As 6 seções editoriais (100vh cada) que ficam empilhadas SOBRE o fundo em
+ * vídeo. O <main> é o trigger do scroll que conduz o vídeo (ver
+ * VideoBackground.tsx).
  *
  * ✅ SEGURO AJUSTAR: toda a copy (eyebrow / headline / texto / CTA) e os stats.
- * ⚠️  NÃO REMOVER: o atributo data-section em cada <section> nem os
- *     data-hero-reveal do Hero — a intro e o CSS mobile dependem deles.
- *     Mantenha 6 seções alinhadas a SCROLL_STATES (scrollStates.ts).
+ * ⚠️  NÃO REMOVER: o atributo data-section em cada <section>, os data-hero-reveal
+ *     do Hero (a intro depende deles) nem os data-reveal das demais seções
+ *     (animação de entrada). A classe section-stack--video liga o fundo/scrim.
  * -----------------------------------------------------------------------------
  */
 
 import Link from "next/link";
 import ProjectStat from "@/components/ProjectStat";
 import LineButton from "@/components/LineButton";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function ScrollSections() {
   return (
-    <main className="section-stack">
+    <main className="section-stack section-stack--video">
+      {/* Revela as seções (abaixo da dobra) ao rolar. */}
+      <ScrollReveal />
       {/* ================= 1 · HERO ================= */}
       <section id="hero" data-section="hero" className="section justify-start">
         <div className="max-w-2xl">
@@ -55,7 +59,7 @@ export default function ScrollSections() {
         data-section="concept"
         className="section justify-end"
       >
-        <div className="max-w-xl lg:ml-auto lg:text-right">
+        <div data-reveal className="max-w-xl lg:ml-auto lg:text-right">
           <span className="section-index">01 — O Escritório</span>
           <h2 className="headline-md mb-7 text-ink">
             Bem-vindo à <em>TR.</em>
@@ -74,7 +78,7 @@ export default function ScrollSections() {
         data-section="facade"
         className="section justify-start"
       >
-        <div className="max-w-xl">
+        <div data-reveal className="max-w-xl">
           <span className="section-index">02 — Nossa Essência</span>
           <h2 className="headline-md mb-7 text-ink">
             Sonho e <em>desejo.</em>
@@ -94,7 +98,7 @@ export default function ScrollSections() {
 
       {/* ================= 4 · PLANTA ================= */}
       <section data-section="floorplan" className="section justify-end">
-        <div className="max-w-xl lg:ml-auto lg:text-right">
+        <div data-reveal className="max-w-xl lg:ml-auto lg:text-right">
           <span className="section-index">03 — O Que Entregamos</span>
           <h2 className="headline-md mb-7 text-ink">
             Elegância e <em>excelência.</em>
@@ -112,7 +116,7 @@ export default function ScrollSections() {
         data-section="materials"
         className="section justify-start"
       >
-        <div className="max-w-xl">
+        <div data-reveal className="max-w-xl">
           <span className="section-index">04 — O Que Acreditamos</span>
           <h2 className="headline-md mb-7 text-ink">
             Confiança e <em>transparência.</em>
@@ -128,7 +132,7 @@ export default function ScrollSections() {
           Apenas um convite. O viewer 360 completo vive em /experiencia-360,
           separado da timeline 3D da home para não competir nem pesar. */}
       <section className="teaser-section">
-        <div className="teaser-card">
+        <div data-reveal className="teaser-card">
           <span className="section-index">05 — Tour 360°</span>
           <h2 className="headline-md mb-6 text-ink">
             Entre no <em>projeto.</em>
@@ -149,7 +153,7 @@ export default function ScrollSections() {
         data-section="final"
         className="section flex-col justify-between"
       >
-        <div className="w-full max-w-2xl pt-[18vh] lg:pt-0">
+        <div data-reveal className="w-full max-w-2xl pt-[18vh] lg:pt-0">
           <span className="section-index">06 — Nossa Missão</span>
           <h2 className="headline-md mb-7 text-ink">
             Vamos projetar

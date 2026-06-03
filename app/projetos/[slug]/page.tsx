@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SmartImage from "@/components/SmartImage";
+import VideoBackground from "@/components/VideoBackground";
+import ScrollReveal from "@/components/ScrollReveal";
 import { PROJECTS, getProject } from "@/lib/content";
 
 type Params = { params: { slug: string } };
@@ -27,7 +29,13 @@ export default function ProjectPage({ params }: Params) {
   if (!project) notFound();
 
   return (
-    <>
+    <div className="has-ambient">
+      <VideoBackground
+        mode="ambient"
+        src="/video/videosite2.2.mp4"
+        poster="/video/videosite2.2-poster.webp"
+      />
+      <ScrollReveal />
       <SiteHeader />
 
       <main className="page">
@@ -60,11 +68,11 @@ export default function ProjectPage({ params }: Params) {
           </dl>
         </header>
 
-        <div className="project-cover">
+        <div data-reveal className="project-cover">
           <SmartImage src={project.cover} alt={`${project.title} — capa`} />
         </div>
 
-        <section className="project-body">
+        <section data-reveal className="project-body">
           {project.description.map((para, i) => (
             <p key={i}>{para}</p>
           ))}
@@ -82,7 +90,7 @@ export default function ProjectPage({ params }: Params) {
           </section>
         )}
 
-        <section className="project-cta">
+        <section data-reveal className="project-cta">
           <h2 className="headline-md text-ink">
             Quer um projeto <em>assim?</em>
           </h2>
@@ -98,6 +106,6 @@ export default function ProjectPage({ params }: Params) {
       </main>
 
       <SiteFooter />
-    </>
+    </div>
   );
 }

@@ -3,7 +3,8 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SmartImage from "@/components/SmartImage";
-import AmbientSceneClient from "@/components/AmbientSceneClient";
+import VideoBackground from "@/components/VideoBackground";
+import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import { PROJECTS } from "@/lib/content";
 
@@ -18,7 +19,12 @@ export default function ProjetosPage() {
 
   return (
     <div className="has-ambient">
-      <AmbientSceneClient />
+      <VideoBackground
+        mode="ambient"
+        src="/video/videosite2.2.mp4"
+        poster="/video/videosite2.2-poster.webp"
+      />
+      <ScrollReveal />
       <SiteHeader />
 
       <main className="page">
@@ -36,6 +42,7 @@ export default function ProjetosPage() {
         {/* Projeto em destaque (o primeiro da lista) */}
         {featured && (
           <Link
+            data-reveal
             href={`/projetos/${featured.slug}`}
             className="project-featured"
           >
@@ -64,6 +71,7 @@ export default function ProjetosPage() {
             {rest.map((p) => (
               <Link
                 key={p.slug}
+                data-reveal
                 href={`/projetos/${p.slug}`}
                 className="project-card"
               >

@@ -3,7 +3,8 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import Testimonials from "@/components/Testimonials";
-import AmbientSceneClient from "@/components/AmbientSceneClient";
+import VideoBackground from "@/components/VideoBackground";
+import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 
 export const metadata: Metadata = {
@@ -15,7 +16,12 @@ export const metadata: Metadata = {
 export default function SobrePage() {
   return (
     <div className="has-ambient">
-      <AmbientSceneClient />
+      <VideoBackground
+        mode="ambient"
+        src="/video/videosite2.2.mp4"
+        poster="/video/videosite2.2-poster.webp"
+      />
+      <ScrollReveal />
       <SiteHeader />
 
       <main className="page">
@@ -34,17 +40,17 @@ export default function SobrePage() {
         </header>
 
         <section className="about-pillars">
-          <div className="about-pillar">
+          <div data-reveal className="about-pillar">
             <span className="about-pillar-num">01</span>
             <h3>O Que Entregamos</h3>
             <p>Elegância, personalidade e excelência.</p>
           </div>
-          <div className="about-pillar">
+          <div data-reveal className="about-pillar">
             <span className="about-pillar-num">02</span>
             <h3>O Que Acreditamos</h3>
             <p>Confiança, transparência e criatividade.</p>
           </div>
-          <div className="about-pillar">
+          <div data-reveal className="about-pillar">
             <span className="about-pillar-num">03</span>
             <h3>Nossa Missão</h3>
             <p>
@@ -56,7 +62,7 @@ export default function SobrePage() {
 
         <Testimonials />
 
-        <section className="project-cta">
+        <section data-reveal className="project-cta">
           <h2 className="headline-md text-ink">
             Vamos conversar sobre o <em>seu projeto?</em>
           </h2>

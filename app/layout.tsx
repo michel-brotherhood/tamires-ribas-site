@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { existsSync } from "fs";
-import path from "path";
 import "./globals.css";
 
 /**
@@ -35,16 +33,6 @@ const sans = localFont({
   ],
 });
 
-/**
- * Preload do GLB só quando o arquivo realmente existir em
- * public/models/architecture.glb. Enquanto o site roda com o placeholder, isso
- * evita um aviso 404 de "preload não utilizado" no console. Assim que você
- * colocar o modelo real, o preload passa a ser emitido automaticamente.
- */
-const MODEL_EXISTS = existsSync(
-  path.join(process.cwd(), "public", "models", "architecture.glb"),
-);
-
 export const metadata: Metadata = {
   title: "TR Arquitetura e Interiores — Muito Além de um Projeto",
   description:
@@ -64,18 +52,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={`${display.variable} ${sans.variable}`}>
-      <head>
-        {/* Preload do modelo para começar a baixar o quanto antes.
-            Só é emitido quando public/models/architecture.glb existe. */}
-        {MODEL_EXISTS && (
-          <link
-            rel="preload"
-            href="/models/architecture.glb"
-            as="fetch"
-            crossOrigin="anonymous"
-          />
-        )}
-      </head>
       <body>{children}</body>
     </html>
   );
