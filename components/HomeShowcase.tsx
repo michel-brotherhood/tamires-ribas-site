@@ -68,7 +68,7 @@ export default function HomeShowcase() {
       </section>
 
       {/* ---------------- DEPOIMENTOS ---------------- */}
-      <section className="showcase-section showcase-testimonials">
+      <section id="home-depoimentos" className="showcase-section showcase-testimonials">
         <Testimonials />
       </section>
 

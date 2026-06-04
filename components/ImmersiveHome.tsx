@@ -3,13 +3,13 @@
 /**
  * ImmersiveHome.tsx
  * -----------------------------------------------------------------------------
- * Home no estilo da referência (ICG Gallery): um WALKTHROUGH em tela cheia onde
- * a ROLAGEM leva a câmera pelos ambientes. O vídeo de flythrough fica PAUSADO e
- * o scroll conduz os quadros (scrub) — você "anda" pelo espaço ao rolar.
+ * Home no estilo da referência (ICG Gallery): uma GALERIA DE AMBIENTES em tela
+ * cheia. A cada rolagem a cena "encaixa" no próximo ambiente (snap), com uma
+ * transição rápida (cross-dissolve + leve zoom). Cada ambiente é uma IMAGEM
+ * distinta — por isso "muda" de verdade ao rolar (não é o mesmo vídeo contínuo).
  *
- * Chrome minimalista (como a referência): header fino (logo · centro · nav),
- * rótulo do ambiente no canto inferior esquerdo, índice/hint no canto direito.
- * Sem textão editorial. O vídeo é re-codificado all-intra → seeking fluido.
+ * Depois dos ambientes, o conteúdo (Projetos/Depoimentos/Contato) flui na mesma
+ * página. A 360° é página à parte. Troque as imagens por renders reais depois.
  * -----------------------------------------------------------------------------
  */
 
@@ -21,28 +21,32 @@ import Logo from "@/components/Logo";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const VIDEO = "/video/videosite2.2.mp4";
-const POSTER = "/video/videosite2.2-poster.webp";
-const SCROLL_VH = 460; // altura do container = espaço de rolagem do flythrough
+/** Ambientes (imagens distintas). Substituir por renders/fotos reais. */
+const ROOMS = [
+  { img: "/experiencia/amb-1.webp", label: "Fachada" },
+  { img: "/experiencia/amb-2.webp", label: "Jardim" },
+  { img: "/experiencia/amb-3.webp", label: "Pátio Social" },
+  { img: "/experiencia/amb-4.webp", label: "Estar" },
+];
 
-/** Rótulos dos "ambientes" conforme a câmera avança (canto inferior esquerdo). */
-const AREAS = ["Fachada", "Entrada", "Área Social", "Cozinha & Sala", "Suíte"];
+const SCROLL_VH = 300; // espaço de rolagem da galeria; depois o conteúdo flui
 
+/* Página única: nav rola para as seções (âncoras). 360° é página à parte. */
 const NAV = [
-  { label: "Sobre", href: "/sobre" },
-  { label: "Projetos", href: "/projetos" },
+  { label: "Projetos", href: "#home-projetos" },
+  { label: "Depoimentos", href: "#home-depoimentos" },
   { label: "360°", href: "/experiencia-360" },
-  { label: "Contato", href: "/contato" },
+  { label: "Contato", href: "#home-contato" },
 ];
 
 export default function ImmersiveHome() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [active, setActive] = useState(0);
+  const [inFly, setInFly] = useState(true);
 
-  // fecha o menu mobile com Esc + trava scroll
+  const n = ROOMS.length;
+
   useEffect(() => {
     if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
@@ -57,50 +61,46 @@ export default function ImmersiveHome() {
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
-    const save = !!conn && (conn.saveData === true || /(^|-)2g$/.test(conn.effectiveType || ""));
-    if (!reduced && !save) setVideoSrc(VIDEO); // carrega o vídeo no cliente
-
     const root = rootRef.current;
-    const video = videoRef.current;
-    if (!root || !video) return;
-
-    // vídeo pausado; o scroll conduz os quadros
-    const seek0 = () => {
-      if (isFinite(video.duration)) video.currentTime = 0.001;
-    };
-    video.pause();
-    video.play().then(() => video.pause()).catch(() => {}).finally(() => {
-      if (video.readyState >= 1) seek0();
-      else video.addEventListener("loadedmetadata", seek0, { once: true });
-    });
+    if (!root) return;
 
     let lastBucket = -1;
     const ctx = gsap.context(() => {
-      gsap.set(video, { scale: 1.06, transformOrigin: "center", force3D: true });
-      const proxy = { t: 0 };
-      gsap.to(proxy, {
-        t: 1,
-        ease: "none",
+      const scenes = gsap.utils.toArray<HTMLElement>(".iv-scene");
+      gsap.set(scenes, { opacity: 0, force3D: true });
+      gsap.set(scenes[0], { opacity: 1 });
+      gsap.set(".iv-media", { scale: 1.04, transformOrigin: "center", force3D: true });
+
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: root,
           start: "top top",
           end: "bottom bottom",
-          scrub: reduced ? true : 0.4,
+          scrub: reduced ? true : 0.5,
+          // EM PASSOS: cada rolagem encaixa no próximo ambiente (como a referência).
+          snap: reduced
+            ? undefined
+            : { snapTo: 1 / (n - 1), duration: { min: 0.25, max: 0.5 }, ease: "power2.inOut" },
           invalidateOnRefresh: true,
+          onLeave: () => setInFly(false),
+          onEnterBack: () => setInFly(true),
           onUpdate: (self) => {
-            const d = video.duration;
-            if (d && isFinite(d)) video.currentTime = proxy.t * (d - 0.05);
-            // pan vertical sutil acompanhando o avanço
-            gsap.set(video, { yPercent: gsap.utils.interpolate(3, -3, proxy.t) });
-            const bucket = Math.min(AREAS.length - 1, Math.floor(self.progress * AREAS.length));
+            const bucket = Math.min(n - 1, Math.round(self.progress * (n - 1)));
             if (bucket !== lastBucket) {
               lastBucket = bucket;
-              setProgress(self.progress);
+              setActive(bucket);
             }
           },
         },
       });
+
+      // Cross-dissolve sem escurecer: a cena nova surge POR CIMA da anterior.
+      for (let i = 1; i < n; i++) {
+        tl.fromTo(scenes[i], { opacity: 0 }, { opacity: 1, ease: "none" }, i - 1);
+        const m = scenes[i].querySelector<HTMLElement>(".iv-media");
+        if (m) tl.fromTo(m, { scale: 1.12 }, { scale: 1.02, ease: "none" }, i - 1);
+      }
+
       ScrollTrigger.refresh();
     }, root);
 
@@ -108,36 +108,37 @@ export default function ImmersiveHome() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const areaIdx = Math.min(AREAS.length - 1, Math.floor(progress * AREAS.length));
-
   return (
     <div ref={rootRef} className="iv" style={{ height: `${SCROLL_VH}vh` }}>
-      {/* Palco fixo em tela cheia */}
+      {/* Palco fixo: ambientes empilhados */}
       <div className="iv-stage">
-        <video
-          ref={videoRef}
-          className="iv-media"
-          src={videoSrc}
-          poster={POSTER}
-          muted
-          playsInline
-          preload="auto"
-        />
+        {ROOMS.map((r, i) => (
+          <div key={r.img} className={`iv-scene iv-scene-${i}`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="iv-media" src={r.img} alt="" />
+          </div>
+        ))}
         <div className="iv-vignette" aria-hidden="true" />
       </div>
 
-      {/* Header minimalista (logo · centro · nav) */}
+      {/* Header minimalista */}
       <header className="iv-nav">
         <Link href="/" className="iv-nav-logo" aria-label="TR — Início">
           <Logo variant="branco" className="brand-logo" />
         </Link>
         <span className="iv-nav-center">Galeria</span>
         <nav className="iv-nav-links">
-          {NAV.map((l) => (
-            <Link key={l.href} href={l.href}>
-              {l.label}
-            </Link>
-          ))}
+          {NAV.map((l) =>
+            l.href.startsWith("#") ? (
+              <a key={l.href} href={l.href}>
+                {l.label}
+              </a>
+            ) : (
+              <Link key={l.href} href={l.href}>
+                {l.label}
+              </Link>
+            ),
+          )}
         </nav>
         <button
           type="button"
@@ -152,22 +153,20 @@ export default function ImmersiveHome() {
       </header>
 
       {/* Canto inferior esquerdo — ambiente atual */}
-      <div className="iv-corner iv-corner--bl" aria-live="polite">
+      <div className={`iv-corner iv-corner--bl ${inFly ? "" : "is-hidden"}`} aria-live="polite">
         <span className="iv-corner-label">Ambiente</span>
-        <span className="iv-corner-value">{AREAS[areaIdx]}</span>
+        <span className="iv-corner-value">{ROOMS[active]?.label}</span>
       </div>
 
-      {/* Canto inferior direito — índice + hint */}
-      <div className="iv-corner iv-corner--br" aria-hidden="true">
+      {/* Rodapé central — índice + hint */}
+      <div className={`iv-corner iv-corner--br ${inFly ? "" : "is-hidden"}`} aria-hidden="true">
         <span className="iv-corner-index">
-          {String(areaIdx + 1).padStart(2, "0")} / {String(AREAS.length).padStart(2, "0")}
+          {String(active + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
         </span>
-        <span className={`iv-scrollhint ${progress > 0.02 ? "is-hidden" : ""}`}>
-          Role para percorrer
-        </span>
+        <span className={`iv-scrollhint ${active > 0 ? "is-hidden" : ""}`}>Role para percorrer</span>
       </div>
 
-      {/* Menu mobile em overlay */}
+      {/* Menu mobile */}
       <div className={`iv-menu ${menuOpen ? "is-open" : ""}`}>
         <div className="iv-menu-top">
           <Logo variant="branco" className="brand-logo" />
@@ -177,20 +176,22 @@ export default function ImmersiveHome() {
           </button>
         </div>
         <nav className="iv-menu-links">
-          {NAV.map((l, i) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateY(0)" : "translateY(12px)",
-                transition: `opacity .4s ease ${0.06 * i + 0.1}s, transform .4s ease ${0.06 * i + 0.1}s`,
-              }}
-            >
-              {l.label}
-            </Link>
-          ))}
+          {NAV.map((l, i) => {
+            const style = {
+              opacity: menuOpen ? 1 : 0,
+              transform: menuOpen ? "translateY(0)" : "translateY(12px)",
+              transition: `opacity .4s ease ${0.06 * i + 0.1}s, transform .4s ease ${0.06 * i + 0.1}s`,
+            };
+            return l.href.startsWith("#") ? (
+              <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} style={style}>
+                {l.label}
+              </a>
+            ) : (
+              <Link key={l.href} href={l.href} onClick={() => setMenuOpen(false)} style={style}>
+                {l.label}
+              </Link>
+            );
+          })}
         </nav>
         <div className="iv-menu-foot">+55 21 98597-8830</div>
       </div>

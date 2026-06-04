@@ -1836,6 +1836,15 @@ html.aurea-ready [data-section="hero"] .cta {
   overflow: hidden;
   background: #0c0b0a;
 }
+.iv-scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity;
+}
+.iv-scene-0 {
+  opacity: 1;
+}
 .iv-media {
   position: absolute;
   inset: 0;
@@ -2045,6 +2054,27 @@ html.aurea-ready [data-section="hero"] .cta {
 .iv-menu-foot {
   color: rgba(244, 241, 234, 0.6);
   font-size: 0.9rem;
+}
+
+/* Página única: rolagem suave ao clicar nas âncoras da nav. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Rótulos do flythrough somem ao entrar no conteúdo (Projetos/etc.). */
+.iv-corner {
+  transition: opacity 0.4s ease;
+}
+.iv-corner.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Folga para a nav fixa não cobrir o título ao pular para a seção. */
+#home-projetos,
+#home-depoimentos,
+#home-contato {
+  scroll-margin-top: 84px;
 }
 
 /* ============================================================================
