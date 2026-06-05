@@ -2761,3 +2761,221 @@ html {
   }
 }
 
+/* ============================================================================
+   FUNDO IMERSIVO PERSISTENTE (no layout) + TEMA ESCURO GLOBAL
+   Um único fundo atrás do site todo; o conteúdo de cada página sobrepõe.
+   (Bloco no fim do arquivo para sobrepor as regras anteriores.)
+   ============================================================================ */
+html {
+  background: #0c0b0a;
+}
+body {
+  background: transparent;
+  color: #f4f1ea;
+}
+
+.site-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: #0c0b0a;
+}
+.site-backdrop__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .site-backdrop__media {
+    animation: backdrop-pan 46s ease-in-out infinite alternate;
+  }
+}
+@keyframes backdrop-pan {
+  from {
+    transform: scale(1.08) translate3d(-1.6%, -1%, 0);
+  }
+  to {
+    transform: scale(1.08) translate3d(1.6%, 1%, 0);
+  }
+}
+/* Sombreado para o conteúdo (texto claro) ler bem sobre o fundo. */
+.site-backdrop__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(125% 120% at 50% 28%, rgba(12, 11, 10, 0.3), rgba(12, 11, 10, 0.66)),
+    linear-gradient(to bottom, rgba(12, 11, 10, 0.5) 0%, rgba(12, 11, 10, 0.42) 42%, rgba(12, 11, 10, 0.72) 100%);
+}
+
+/* Conteúdo sempre acima do fundo (z-index 0). */
+.site-header,
+.site-footer,
+.home-showcase,
+.page,
+main,
+.home-hero {
+  position: relative;
+  z-index: 10;
+}
+
+/* Texto claro global. */
+.headline,
+.headline-md,
+.text-ink,
+.page h1,
+.page h2,
+.page h3,
+.showcase-section h2 {
+  color: #ffffff;
+}
+.section-index {
+  color: rgba(244, 241, 234, 0.6);
+}
+.body-text {
+  color: rgba(244, 241, 234, 0.84);
+}
+.back-link {
+  color: rgba(244, 241, 234, 0.62);
+}
+.back-link:hover {
+  color: #fff;
+}
+
+/* Header interno transparente/escuro (consistente em todo o site). */
+.site-header {
+  background: rgba(12, 11, 10, 0.42);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: rgba(244, 241, 234, 0.12);
+}
+.site-nav-link {
+  color: rgba(244, 241, 234, 0.86);
+}
+.site-nav-link:hover,
+.site-nav-link.is-active {
+  color: #fff;
+}
+
+/* Cartões/superfícies → vidro escuro. */
+.about-pillar,
+.project-card,
+.project-featured,
+.testimonial-card,
+.contact-form-card {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(244, 241, 234, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.about-pillar h3,
+.project-card-title,
+.project-featured-title {
+  color: #fff;
+}
+.about-pillar p,
+.project-card-meta,
+.project-card-summary,
+.contact-item a,
+.contact-item p,
+.contact-channels a,
+.contact-channels span:not(.contact-label),
+.testimonial-card blockquote,
+.testimonial-role {
+  color: rgba(244, 241, 234, 0.8);
+}
+.project-card-link,
+.contact-item a:hover,
+.contact-channels a:hover,
+.testimonial-author {
+  color: #fff;
+}
+.contact-label,
+.about-pillar-num,
+.project-card-meta {
+  color: rgba(244, 241, 234, 0.55);
+}
+
+/* Formulário no escuro. */
+.page input,
+.page textarea,
+.page select,
+.contact-form-card input,
+.contact-form-card textarea,
+.contact-form-card select {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f4f1ea;
+  border-color: rgba(244, 241, 234, 0.18);
+}
+.page input::placeholder,
+.page textarea::placeholder {
+  color: rgba(244, 241, 234, 0.4);
+}
+
+/* Botões no escuro. */
+.cta {
+  background: #f4f1ea;
+  color: #1a1712;
+}
+.cta-ghost {
+  border-color: rgba(244, 241, 234, 0.5);
+  color: #f4f1ea;
+}
+.cta-ghost:hover {
+  background: rgba(244, 241, 234, 0.1);
+  border-color: rgba(244, 241, 234, 0.7);
+}
+
+/* Showcase e rodapé transparentes/leves → o MESMO fundo aparece. */
+.home-showcase {
+  background: transparent;
+}
+.showcase-transition {
+  display: none;
+}
+.showcase-solid {
+  background: rgba(12, 11, 10, 0.34);
+  color: #f4f1ea;
+}
+.site-footer {
+  background: rgba(10, 9, 8, 0.5);
+  border-top: 1px solid rgba(244, 241, 234, 0.1);
+  color: rgba(244, 241, 234, 0.8);
+}
+
+/* Páginas internas: sem fundo próprio (o backdrop do layout é o fundo). */
+.has-ambient {
+  background: transparent;
+}
+
+/* Hero da home — texto sobre o fundo imersivo. */
+.home-hero {
+  position: relative;
+  z-index: 10;
+  min-height: 90vh;
+  min-height: 90dvh;
+  display: flex;
+  align-items: center;
+  padding: 16vh clamp(20px, 8vw, 80px) 12vh;
+}
+.home-hero-inner {
+  max-width: 680px;
+}
+.home-hero .section-index {
+  display: block;
+  margin-bottom: 1.4rem;
+}
+.home-hero .headline {
+  color: #ffffff;
+  margin-bottom: 1.6rem;
+}
+.home-hero .body-text {
+  max-width: 46ch;
+  margin-bottom: 2.2rem;
+}
+

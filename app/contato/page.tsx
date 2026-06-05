@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ContactForm from "@/components/ContactForm";
-import VideoBackground from "@/components/VideoBackground";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 
@@ -15,11 +14,6 @@ export const metadata: Metadata = {
 export default function ContatoPage() {
   return (
     <div className="has-ambient">
-      <VideoBackground
-        mode="ambient"
-        src="/video/videosite2.2.mp4"
-        poster="/video/videosite2.2-poster.webp"
-      />
       <ScrollReveal />
       <SiteHeader />
 
