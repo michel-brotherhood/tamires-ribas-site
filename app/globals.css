@@ -998,6 +998,7 @@ html.aurea-ready [data-section="hero"] .cta {
 .site-header-inner {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 clamp(20px, 8vw, 80px); /* mesma coluna do conteúdo (showcase) */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1008,7 +1009,7 @@ html.aurea-ready [data-section="hero"] .cta {
   position: sticky;
   top: 0;
   z-index: 50;
-  padding: 12px clamp(20px, 8vw, 80px);
+  padding: 12px 0; /* horizontal vai para o .site-header-inner (alinha com o conteúdo) */
   background: rgba(130, 123, 111, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -1758,7 +1759,7 @@ html.aurea-ready [data-section="hero"] .cta {
 .site-footer {
   background: var(--accent); /* banda taupe da marca */
   color: var(--paper);
-  padding: clamp(48px, 6vw, 80px) clamp(20px, 8vw, 80px);
+  padding: clamp(48px, 6vw, 80px) 0; /* horizontal vai para o inner (alinha) */
 }
 
 .site-footer .site-logo {
@@ -3000,12 +3001,13 @@ main,
   min-height: 90dvh;
   display: flex;
   align-items: center;
-  padding: 16vh clamp(20px, 8vw, 80px) 12vh;
+  padding: 16vh 0 12vh; /* horizontal vai para o inner (alinha com o conteúdo) */
 }
 .home-hero-inner {
-  max-width: 1200px; /* mesmo container do header → alinha com a logo */
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  padding: 0 clamp(20px, 8vw, 80px); /* mesma coluna do showcase/essência */
 }
 .home-hero-text {
   max-width: 680px;
@@ -3066,6 +3068,7 @@ main,
 .site-footer-inner {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 clamp(20px, 8vw, 80px); /* mesma coluna do conteúdo */
 }
 
 /* Header: SEM fundo no topo (faz parte da seção); fundo só ao rolar. */
