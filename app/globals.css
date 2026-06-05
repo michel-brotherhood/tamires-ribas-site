@@ -3142,3 +3142,51 @@ main,
   display: inline-block;
 }
 
+/* Variante do botão do HERO — contorno claro + hover com brilho. */
+.frame-btn.btn-glow {
+  padding: 13px 28px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.55);
+  background: transparent;
+  text-transform: uppercase;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: color 0.5s ease, background 0.5s ease, border-color 0.5s ease,
+    box-shadow 0.5s ease, text-shadow 0.5s ease;
+}
+.frame-btn.btn-glow:hover {
+  color: #ffffff;
+  background: #008cff;
+  border-color: #008cff;
+  text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+  box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff,
+    0 0 100px #008cff;
+}
+
+/* ============================================================================
+   FORMULÁRIO no fundo escuro — fonte mais clara/legível.
+   ============================================================================ */
+.form-modern label,
+.form-field label,
+.contact-form label {
+  color: rgba(244, 241, 234, 0.9);
+}
+.form-modern input,
+.form-modern textarea,
+.form-modern select,
+.form-field input,
+.form-field textarea,
+.form-field select {
+  color: #f4f1ea;
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(244, 241, 234, 0.24);
+}
+.form-modern input::placeholder,
+.form-modern textarea::placeholder,
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: rgba(244, 241, 234, 0.58);
+}
+

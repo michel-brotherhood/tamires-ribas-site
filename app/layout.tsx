@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import SiteBackdrop from "@/components/SiteBackdrop";
+import NoInspect from "@/components/NoInspect";
 import "./globals.css";
 
 /**
@@ -57,6 +58,7 @@ export default function RootLayout({
         {/* Fundo imersivo ÚNICO, persistente em todo o site (não recarrega
             entre páginas). O conteúdo de cada rota apenas sobrepõe. */}
         <SiteBackdrop />
+        <NoInspect />
         {children}
       </body>
     </html>
