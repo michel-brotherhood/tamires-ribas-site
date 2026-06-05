@@ -3142,27 +3142,37 @@ main,
   display: inline-block;
 }
 
-/* Variante do botão do HERO — contorno claro + hover com brilho. */
+/* Variante do botão do HERO — contorno claro + hover ON-BRAND: preenche em
+   creme (texto escuro) com halo quente suave (luz cor de areia) e leve subida.
+   Elegante, sem neon. */
 .frame-btn.btn-glow {
-  padding: 13px 28px;
+  padding: 14px 30px;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  color: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(244, 241, 234, 0.55);
+  color: rgba(244, 241, 234, 0.85);
   background: transparent;
   text-transform: uppercase;
-  font-size: 0.92rem;
+  font-size: 0.84rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
-  transition: color 0.5s ease, background 0.5s ease, border-color 0.5s ease,
-    box-shadow 0.5s ease, text-shadow 0.5s ease;
+  letter-spacing: 0.12em;
+  transition: color 0.45s ease, background 0.45s ease, border-color 0.45s ease,
+    box-shadow 0.45s ease, transform 0.45s ease;
 }
 .frame-btn.btn-glow:hover {
-  color: #ffffff;
-  background: #008cff;
-  border-color: #008cff;
-  text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
-  box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff,
-    0 0 100px #008cff;
+  color: #1a1712;
+  background: #f4f1ea;
+  border-color: #f4f1ea;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 34px -12px rgba(202, 191, 171, 0.6),
+    0 0 48px -10px rgba(202, 191, 171, 0.55);
+}
+@media (prefers-reduced-motion: reduce) {
+  .frame-btn.btn-glow {
+    transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  }
+  .frame-btn.btn-glow:hover {
+    transform: none;
+  }
 }
 
 /* ============================================================================
