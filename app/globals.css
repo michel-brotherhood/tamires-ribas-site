@@ -998,6 +998,7 @@ html.aurea-ready [data-section="hero"] .cta {
 .site-header-inner {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 clamp(20px, 8vw, 80px); /* mesma coluna do conteúdo (showcase) */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1008,7 +1009,7 @@ html.aurea-ready [data-section="hero"] .cta {
   position: sticky;
   top: 0;
   z-index: 50;
-  padding: 12px clamp(20px, 8vw, 80px);
+  padding: 12px 0; /* horizontal vai para o .site-header-inner (alinha com o conteúdo) */
   background: rgba(130, 123, 111, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -1135,8 +1136,8 @@ html.aurea-ready [data-section="hero"] .cta {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   background: none;
@@ -1758,7 +1759,7 @@ html.aurea-ready [data-section="hero"] .cta {
 .site-footer {
   background: var(--accent); /* banda taupe da marca */
   color: var(--paper);
-  padding: clamp(48px, 6vw, 80px) clamp(20px, 8vw, 80px);
+  padding: clamp(48px, 6vw, 80px) 0; /* horizontal vai para o inner (alinha) */
 }
 
 .site-footer .site-logo {
@@ -1818,6 +1819,263 @@ html.aurea-ready [data-section="hero"] .cta {
     flex-direction: row;
     justify-content: space-between;
   }
+}
+
+/* ============================================================================
+   HOME IMERSIVA (estilo galeria/ICG) — walkthrough: a rolagem conduz a câmera
+   pelo espaço (vídeo pausado + scrub). Chrome minimalista.
+   ============================================================================ */
+.iv {
+  position: relative;
+  background: #0c0b0a;
+}
+.iv-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #0c0b0a;
+}
+.iv-scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity;
+}
+.iv-scene-0 {
+  opacity: 1;
+}
+.iv-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Vinheta sutil só para o chrome (header/cantos) ler — sem escurecer a cena. */
+.iv-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 9, 8, 0.45) 0%,
+    rgba(10, 9, 8, 0) 16%,
+    rgba(10, 9, 8, 0) 76%,
+    rgba(10, 9, 8, 0.52) 100%
+  );
+}
+
+/* Header fino: logo (esq) · "Galeria" (centro) · nav (dir) */
+.iv-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(16px, 2.6vh, 26px) clamp(20px, 5vw, 56px);
+  pointer-events: none;
+}
+.iv-nav > * {
+  pointer-events: auto;
+}
+.iv-nav-logo {
+  display: inline-flex;
+}
+.iv-nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-sans), var(--font-display), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-size: 12px;
+  color: rgba(244, 241, 234, 0.92);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
+}
+.iv-nav-links {
+  display: flex;
+  gap: clamp(16px, 2vw, 34px);
+}
+.iv-nav-links a {
+  color: rgba(244, 241, 234, 0.86);
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
+  transition: color 0.3s ease;
+}
+.iv-nav-links a:hover {
+  color: #fff;
+}
+
+/* Cantos inferiores — rótulos pequenos */
+.iv-corner {
+  position: fixed;
+  z-index: 50;
+  bottom: clamp(22px, 4vh, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.iv-corner--bl {
+  left: clamp(20px, 5vw, 56px);
+}
+/* Centralizado no rodapé — evita colidir com o balão flutuante do WhatsApp
+   (canto inferior direito) e com o rótulo do ambiente (canto inferior esq). */
+.iv-corner--br {
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  text-align: center;
+}
+.iv-corner-label,
+.iv-corner-index,
+.iv-scrollhint {
+  font-family: var(--font-sans), var(--font-display), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 10px;
+  color: rgba(244, 241, 234, 0.62);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+}
+.iv-corner-value {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(20px, 2.4vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.6);
+}
+.iv-scrollhint {
+  margin-top: 6px;
+  transition: opacity 0.4s ease;
+}
+.iv-scrollhint.is-hidden {
+  opacity: 0;
+}
+
+/* Hambúrguer (mobile) + menu overlay */
+.iv-burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.iv-burger span {
+  width: 26px;
+  height: 1.5px;
+  background: #f4f1ea;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+@media (max-width: 760px) {
+  .iv-nav-links,
+  .iv-nav-center {
+    display: none;
+  }
+  .iv-burger {
+    display: flex;
+  }
+  .iv-corner-value {
+    font-size: 22px;
+  }
+}
+.iv-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(10, 9, 8, 0.97);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(16px, 3vh, 28px) clamp(20px, 8vw, 56px) 8vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.iv-menu.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.iv-menu-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.iv-menu-close {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.iv-menu-close span {
+  position: absolute;
+  left: 9px;
+  top: 21px;
+  width: 26px;
+  height: 1.5px;
+  background: #f4f1ea;
+}
+.iv-menu-close span:first-child {
+  transform: rotate(45deg);
+}
+.iv-menu-close span:last-child {
+  transform: rotate(-45deg);
+}
+.iv-menu-links {
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.iv-menu-links a {
+  color: #f4f1ea;
+  text-decoration: none;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(32px, 9vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  padding: 10px 0;
+}
+.iv-menu-foot {
+  color: rgba(244, 241, 234, 0.6);
+  font-size: 0.9rem;
+}
+
+/* Página única: rolagem suave ao clicar nas âncoras da nav. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Rótulos do flythrough somem ao entrar no conteúdo (Projetos/etc.). */
+.iv-corner {
+  transition: opacity 0.4s ease;
+}
+.iv-corner.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Folga para a nav fixa não cobrir o título ao pular para a seção. */
+#home-projetos,
+#home-depoimentos,
+#home-contato {
+  scroll-margin-top: 84px;
 }
 
 /* ============================================================================
@@ -2502,5 +2760,385 @@ html.aurea-ready [data-section="hero"] .cta {
   .stats-grid {
     gap: 1.5rem 2rem;
   }
+}
+
+/* ============================================================================
+   FUNDO IMERSIVO PERSISTENTE (no layout) + TEMA ESCURO GLOBAL
+   Um único fundo atrás do site todo; o conteúdo de cada página sobrepõe.
+   (Bloco no fim do arquivo para sobrepor as regras anteriores.)
+   ============================================================================ */
+html {
+  background: #0c0b0a;
+}
+body {
+  background: transparent;
+  color: #f4f1ea;
+}
+
+.site-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: #0c0b0a;
+}
+.site-backdrop__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Leve zoom de cover; a reprodução é conduzida pelo scroll (scrub no JS). */
+  transform: scale(1.06);
+  transform-origin: center;
+  will-change: transform;
+}
+/* Sombreado para o conteúdo (texto claro) ler bem sobre o fundo. */
+.site-backdrop__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(125% 120% at 50% 28%, rgba(12, 11, 10, 0.3), rgba(12, 11, 10, 0.66)),
+    linear-gradient(to bottom, rgba(12, 11, 10, 0.5) 0%, rgba(12, 11, 10, 0.42) 42%, rgba(12, 11, 10, 0.72) 100%);
+}
+
+/* Conteúdo sempre acima do fundo (z-index 0). */
+.site-header,
+.site-footer,
+.home-showcase,
+.page,
+main,
+.home-hero {
+  position: relative;
+  z-index: 10;
+}
+
+/* Texto claro global. */
+.headline,
+.headline-md,
+.text-ink,
+.page h1,
+.page h2,
+.page h3,
+.showcase-section h2 {
+  color: #ffffff;
+}
+.section-index {
+  color: rgba(244, 241, 234, 0.6);
+}
+.body-text {
+  color: rgba(244, 241, 234, 0.84);
+}
+.back-link {
+  color: rgba(244, 241, 234, 0.62);
+}
+.back-link:hover {
+  color: #fff;
+}
+
+/* Header interno transparente/escuro (consistente em todo o site). */
+.site-header {
+  background: rgba(12, 11, 10, 0.42);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: rgba(244, 241, 234, 0.12);
+}
+.site-nav-link {
+  color: rgba(244, 241, 234, 0.86);
+}
+.site-nav-link:hover,
+.site-nav-link.is-active {
+  color: #fff;
+}
+
+/* Cartões/superfícies → vidro escuro. */
+.about-pillar,
+.project-card,
+.project-featured,
+.testimonial-card,
+.contact-form-card {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(244, 241, 234, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.about-pillar h3,
+.project-card-title,
+.project-featured-title {
+  color: #fff;
+}
+.about-pillar p,
+.project-card-meta,
+.project-card-summary,
+.contact-item a,
+.contact-item p,
+.contact-channels a,
+.contact-channels span:not(.contact-label),
+.testimonial-card blockquote,
+.testimonial-role {
+  color: rgba(244, 241, 234, 0.8);
+}
+.project-card-link,
+.contact-item a:hover,
+.contact-channels a:hover,
+.testimonial-author {
+  color: #fff;
+}
+.contact-label,
+.about-pillar-num,
+.project-card-meta {
+  color: rgba(244, 241, 234, 0.55);
+}
+
+/* Formulário no escuro. */
+.page input,
+.page textarea,
+.page select,
+.contact-form-card input,
+.contact-form-card textarea,
+.contact-form-card select {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f4f1ea;
+  border-color: rgba(244, 241, 234, 0.18);
+}
+.page input::placeholder,
+.page textarea::placeholder {
+  color: rgba(244, 241, 234, 0.4);
+}
+
+/* Botões no escuro. */
+.cta {
+  background: #f4f1ea;
+  color: #1a1712;
+}
+.cta-ghost {
+  border-color: rgba(244, 241, 234, 0.5);
+  color: #f4f1ea;
+}
+.cta-ghost:hover {
+  background: rgba(244, 241, 234, 0.1);
+  border-color: rgba(244, 241, 234, 0.7);
+}
+
+/* Showcase e rodapé transparentes/leves → o MESMO fundo aparece. */
+.home-showcase {
+  background: transparent;
+}
+.showcase-transition {
+  display: none;
+}
+.showcase-solid {
+  background: rgba(12, 11, 10, 0.34);
+  color: #f4f1ea;
+}
+.site-footer {
+  background: rgba(10, 9, 8, 0.5);
+  border-top: 1px solid rgba(244, 241, 234, 0.1);
+  color: rgba(244, 241, 234, 0.8);
+}
+
+/* Páginas internas: sem fundo próprio (o backdrop do layout é o fundo). */
+.has-ambient {
+  background: transparent;
+}
+
+/* Acessibilidade (vistoria): alvos de toque maiores no rodapé/contato. */
+@media (max-width: 1024px) {
+  .site-footer-nav a {
+    display: inline-block;
+    padding: 8px 0;
+  }
+  .contact-item a {
+    display: inline-block;
+    padding: 4px 0;
+  }
+}
+
+/* Loader de rota — feedback ao navegar (o fundo persistente fica atrás). */
+.route-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: rgba(10, 9, 8, 0.4);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.route-loading-mark {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: 0.12em;
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+}
+.route-loading-bar {
+  position: relative;
+  width: 160px;
+  height: 1px;
+  background: rgba(244, 241, 234, 0.2);
+  overflow: hidden;
+}
+.route-loading-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: #f4f1ea;
+  animation: loading-slide 1.3s ease-in-out infinite;
+}
+
+/* Hero da home — texto sobre o fundo imersivo. */
+.home-hero {
+  position: relative;
+  z-index: 10;
+  min-height: 90vh;
+  min-height: 90dvh;
+  display: flex;
+  align-items: center;
+  padding: 16vh 0 12vh; /* horizontal vai para o inner (alinha com o conteúdo) */
+}
+.home-hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 clamp(20px, 8vw, 80px); /* mesma coluna do showcase/essência */
+}
+.home-hero-text {
+  max-width: 680px;
+}
+.home-hero .section-index {
+  display: block;
+  margin-bottom: 1.4rem;
+}
+.home-hero .headline {
+  color: #ffffff;
+  margin-bottom: 1.6rem;
+}
+.home-hero .body-text {
+  max-width: 46ch;
+  margin-bottom: 2.2rem;
+}
+
+/* Bloco "Sobre" (essência) na home — alinhado ao container do header. */
+.home-about {
+  position: relative;
+  z-index: 10;
+  padding: clamp(48px, 8vh, 110px) 0;
+}
+.home-about-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 8vw, 80px);
+}
+.home-about .headline-md {
+  color: #ffffff;
+  margin: 1rem 0 1.3rem;
+}
+.home-about .body-text {
+  max-width: 62ch;
+}
+
+/* ============================================================================
+   CORREÇÕES DA VISTORIA — texto que ficou escuro sobre o fundo escuro
+   (regras antigas mais específicas que o tema global não tinha vencido).
+   ============================================================================ */
+/* Corpo das páginas internas (era #2f2b25, do contraste antigo p/ fundo claro). */
+.has-ambient .body-text,
+.section-stack--video .body-text {
+  color: rgba(244, 241, 234, 0.84);
+}
+/* Botão accent volta a ter texto branco (o .cta global o havia escurecido). */
+.cta-accent {
+  color: #ffffff;
+}
+/* Labels de formulário no escuro. */
+.form-field label,
+.contact-form label,
+.page label {
+  color: rgba(244, 241, 234, 0.72);
+}
+
+/* Rodapé alinhado ao header (mesmo container 1200). */
+.site-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 8vw, 80px); /* mesma coluna do conteúdo */
+}
+
+/* Header: SEM fundo no topo (faz parte da seção); fundo só ao rolar. */
+.site-header {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: background 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease;
+}
+.site-header.is-scrolled {
+  background: rgba(12, 11, 10, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: rgba(244, 241, 234, 0.12);
+}
+
+/* Pilares (Sobre) — mais respiro e hierarquia (texto não fica colado). */
+.about-pillars {
+  gap: clamp(1.5rem, 2.4vw, 2.4rem);
+}
+.about-pillar {
+  padding: clamp(28px, 3.2vw, 44px);
+  border-radius: 14px;
+}
+.about-pillar-num {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  color: #cdbfa8;
+  margin-bottom: 1.5rem;
+}
+.about-pillar h3 {
+  font-size: clamp(1.5rem, 1.9vw, 1.9rem);
+  line-height: 1.15;
+  margin: 0 0 0.9rem;
+}
+.about-pillar p {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ============================================================================
+   BOTÃO CLEAN — contorno fino, sem animação de moldura. Hover discreto
+   (preenche claro / texto escuro). Uso: class="frame-btn"><span>Texto</span>
+   ============================================================================ */
+.frame-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  border: 1px solid rgba(244, 241, 234, 0.55);
+  color: #f4f1ea;
+  background: transparent;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.84rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  line-height: 1.1;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.frame-btn:hover {
+  background: #f4f1ea;
+  color: #14120f;
+  border-color: #f4f1ea;
+}
+.frame-btn > span {
+  display: inline-block;
 }
 

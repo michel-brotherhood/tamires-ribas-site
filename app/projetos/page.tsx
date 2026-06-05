@@ -3,7 +3,6 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SmartImage from "@/components/SmartImage";
-import VideoBackground from "@/components/VideoBackground";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import { PROJECTS } from "@/lib/content";
@@ -19,11 +18,6 @@ export default function ProjetosPage() {
 
   return (
     <div className="has-ambient">
-      <VideoBackground
-        mode="ambient"
-        src="/video/videosite2.2.mp4"
-        poster="/video/videosite2.2-poster.webp"
-      />
       <ScrollReveal />
       <SiteHeader />
 

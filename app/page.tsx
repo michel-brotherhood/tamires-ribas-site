@@ -1,35 +1,56 @@
-import Header from "@/components/Header";
-import LoadingScreen from "@/components/LoadingScreen";
-import VideoBackground from "@/components/VideoBackground";
-import ScrollSections from "@/components/ScrollSections";
+import SiteHeader from "@/components/SiteHeader";
 import HomeShowcase from "@/components/HomeShowcase";
+import FrameButton from "@/components/FrameButton";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 
 export default function Home() {
   return (
     <>
-      {/* Tela de carregamento — não importa nada de three/drei/fiber. */}
-      <LoadingScreen />
+      {/* O fundo imersivo é o SiteBackdrop (no layout) — persistente em todo o
+          site. Aqui só vai o conteúdo, sobreposto. */}
+      <SiteHeader />
 
-      {/* Header fixo (pointer-events controlado internamente). */}
-      <Header />
+      <section className="home-hero">
+        {/* Container 1200 (igual ao do header) → o texto alinha com a logo. */}
+        <div className="home-hero-inner">
+          <div className="home-hero-text">
+            <span className="section-index">Arquitetura e Interiores de Alto Padrão</span>
+            <h1 className="headline">
+              Muito Além
+              <br />
+              de um <em>Projeto.</em>
+            </h1>
+            <p className="body-text">
+              Projetos residenciais de alto padrão que refletem personalidade,
+              conforto e atemporalidade — pela arquiteta Tamires Ribas.
+            </p>
+            <FrameButton href="https://wa.me/5521985978830" external>
+              Falar com a Arquiteta
+            </FrameButton>
+          </div>
+        </div>
+      </section>
 
-      {/* Fundo em vídeo cinematográfico, fixo em tela cheia, com efeito de
-          scroll "ida e volta" (rola → avança / volta → rebobina). */}
-      <VideoBackground
-        mode="hero"
-        src="/video/videosite2.2.mp4"
-        poster="/video/videosite2.2-poster.webp"
-      />
+      {/* Primeira parte do Sobre (essência) trazida para a home. */}
+      <section className="home-about">
+        <div className="home-about-inner">
+          <span className="section-index">Nossa Essência</span>
+          <h2 className="headline-md">
+            Muito além de um <em>projeto.</em>
+          </h2>
+          <p className="body-text">
+            Fundado há mais de 10 anos pela arquiteta Tamires Ribas, o escritório
+            TR Arquitetura e Interiores é especializado em projetos residenciais
+            de alto padrão. &ldquo;T&rdquo; e &ldquo;R&rdquo; resumem iniciais que
+            valorizam o relacionamento transparente e humano, alinhando o
+            desenvolvimento projetual ao que é essencial para o morador.
+          </p>
+        </div>
+      </section>
 
-      {/* Conteúdo editorial: 6 seções de 100vh empilhadas sobre o canvas. */}
-      <ScrollSections />
-
-      {/* Projetos, depoimentos e contato — fora do <main>, fundo sólido, para
-          não interferir na timeline 3D do ScrollTrigger. */}
+      {/* Projetos · Depoimentos · Contato — sobre o MESMO fundo. */}
       <HomeShowcase />
 
-      {/* Botão flutuante de WhatsApp com mini-chatbot. */}
       <WhatsAppWidget />
     </>
   );

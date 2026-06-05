@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SmartImage from "@/components/SmartImage";
-import VideoBackground from "@/components/VideoBackground";
+import FrameButton from "@/components/FrameButton";
 import ScrollReveal from "@/components/ScrollReveal";
 import { PROJECTS, getProject } from "@/lib/content";
 
@@ -30,11 +30,6 @@ export default function ProjectPage({ params }: Params) {
 
   return (
     <div className="has-ambient">
-      <VideoBackground
-        mode="ambient"
-        src="/video/videosite2.2.mp4"
-        poster="/video/videosite2.2-poster.webp"
-      />
       <ScrollReveal />
       <SiteHeader />
 
@@ -95,12 +90,8 @@ export default function ProjectPage({ params }: Params) {
             Quer um projeto <em>assim?</em>
           </h2>
           <div className="project-cta-actions">
-            <Link href="/contato" className="cta cta-accent">
-              Falar com a arquiteta
-            </Link>
-            <Link href="/experiencia-360" className="cta-ghost">
-              Ver tour 360°
-            </Link>
+            <FrameButton href="/contato">Falar com a arquiteta</FrameButton>
+            <FrameButton href="/experiencia-360">Ver tour 360°</FrameButton>
           </div>
         </section>
       </main>
