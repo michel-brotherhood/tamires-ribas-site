@@ -12,6 +12,7 @@ import Link from "next/link";
 import SmartImage from "@/components/SmartImage";
 import Testimonials from "@/components/Testimonials";
 import ContactForm from "@/components/ContactForm";
+import FrameButton from "@/components/FrameButton";
 import Logo from "@/components/Logo";
 import { PROJECTS } from "@/lib/content";
 
@@ -34,9 +35,9 @@ export default function HomeShowcase() {
               Projetos <em>recentes.</em>
             </h2>
           </div>
-          <Link href="/projetos" className="cta-ghost showcase-head-cta">
+          <FrameButton href="/projetos" className="showcase-head-cta">
             Ver todos
-          </Link>
+          </FrameButton>
         </div>
 
         <div className="showcase-projects">

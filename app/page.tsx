@@ -1,6 +1,6 @@
 import SiteHeader from "@/components/SiteHeader";
 import HomeShowcase from "@/components/HomeShowcase";
-import LineButton from "@/components/LineButton";
+import FrameButton from "@/components/FrameButton";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 
 export default function Home() {
@@ -11,20 +11,40 @@ export default function Home() {
       <SiteHeader />
 
       <section className="home-hero">
+        {/* Container 1200 (igual ao do header) → o texto alinha com a logo. */}
         <div className="home-hero-inner">
-          <span className="section-index">Arquitetura e Interiores de Alto Padrão</span>
-          <h1 className="headline">
-            Muito Além
-            <br />
-            de um <em>Projeto.</em>
-          </h1>
+          <div className="home-hero-text">
+            <span className="section-index">Arquitetura e Interiores de Alto Padrão</span>
+            <h1 className="headline">
+              Muito Além
+              <br />
+              de um <em>Projeto.</em>
+            </h1>
+            <p className="body-text">
+              Projetos residenciais de alto padrão que refletem personalidade,
+              conforto e atemporalidade — pela arquiteta Tamires Ribas.
+            </p>
+            <FrameButton href="https://wa.me/5521985978830" external>
+              Falar com a Arquiteta
+            </FrameButton>
+          </div>
+        </div>
+      </section>
+
+      {/* Primeira parte do Sobre (essência) trazida para a home. */}
+      <section className="home-about">
+        <div className="home-about-inner">
+          <span className="section-index">Nossa Essência</span>
+          <h2 className="headline-md">
+            Muito além de um <em>projeto.</em>
+          </h2>
           <p className="body-text">
-            Projetos residenciais de alto padrão que refletem personalidade,
-            conforto e atemporalidade — pela arquiteta Tamires Ribas.
+            Fundado há mais de 10 anos pela arquiteta Tamires Ribas, o escritório
+            TR Arquitetura e Interiores é especializado em projetos residenciais
+            de alto padrão. &ldquo;T&rdquo; e &ldquo;R&rdquo; resumem iniciais que
+            valorizam o relacionamento transparente e humano, alinhando o
+            desenvolvimento projetual ao que é essencial para o morador.
           </p>
-          <LineButton href="https://wa.me/5521985978830" external>
-            Falar com a Arquiteta
-          </LineButton>
         </div>
       </section>
 

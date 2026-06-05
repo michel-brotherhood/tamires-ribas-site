@@ -1135,8 +1135,8 @@ html.aurea-ready [data-section="hero"] .cta {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   background: none;
@@ -2788,21 +2788,10 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.08);
+  /* Leve zoom de cover; a reprodução é conduzida pelo scroll (scrub no JS). */
+  transform: scale(1.06);
   transform-origin: center;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .site-backdrop__media {
-    animation: backdrop-pan 46s ease-in-out infinite alternate;
-  }
-}
-@keyframes backdrop-pan {
-  from {
-    transform: scale(1.08) translate3d(-1.6%, -1%, 0);
-  }
-  to {
-    transform: scale(1.08) translate3d(1.6%, 1%, 0);
-  }
+  will-change: transform;
 }
 /* Sombreado para o conteúdo (texto claro) ler bem sobre o fundo. */
 .site-backdrop__scrim {
@@ -2953,6 +2942,56 @@ main,
   background: transparent;
 }
 
+/* Acessibilidade (vistoria): alvos de toque maiores no rodapé/contato. */
+@media (max-width: 1024px) {
+  .site-footer-nav a {
+    display: inline-block;
+    padding: 8px 0;
+  }
+  .contact-item a {
+    display: inline-block;
+    padding: 4px 0;
+  }
+}
+
+/* Loader de rota — feedback ao navegar (o fundo persistente fica atrás). */
+.route-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: rgba(10, 9, 8, 0.4);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.route-loading-mark {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: 0.12em;
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+}
+.route-loading-bar {
+  position: relative;
+  width: 160px;
+  height: 1px;
+  background: rgba(244, 241, 234, 0.2);
+  overflow: hidden;
+}
+.route-loading-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: #f4f1ea;
+  animation: loading-slide 1.3s ease-in-out infinite;
+}
+
 /* Hero da home — texto sobre o fundo imersivo. */
 .home-hero {
   position: relative;
@@ -2964,6 +3003,11 @@ main,
   padding: 16vh clamp(20px, 8vw, 80px) 12vh;
 }
 .home-hero-inner {
+  max-width: 1200px; /* mesmo container do header → alinha com a logo */
+  margin: 0 auto;
+  width: 100%;
+}
+.home-hero-text {
   max-width: 680px;
 }
 .home-hero .section-index {
@@ -2977,5 +3021,121 @@ main,
 .home-hero .body-text {
   max-width: 46ch;
   margin-bottom: 2.2rem;
+}
+
+/* Bloco "Sobre" (essência) na home — alinhado ao container do header. */
+.home-about {
+  position: relative;
+  z-index: 10;
+  padding: clamp(48px, 8vh, 110px) 0;
+}
+.home-about-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 8vw, 80px);
+}
+.home-about .headline-md {
+  color: #ffffff;
+  margin: 1rem 0 1.3rem;
+}
+.home-about .body-text {
+  max-width: 62ch;
+}
+
+/* ============================================================================
+   CORREÇÕES DA VISTORIA — texto que ficou escuro sobre o fundo escuro
+   (regras antigas mais específicas que o tema global não tinha vencido).
+   ============================================================================ */
+/* Corpo das páginas internas (era #2f2b25, do contraste antigo p/ fundo claro). */
+.has-ambient .body-text,
+.section-stack--video .body-text {
+  color: rgba(244, 241, 234, 0.84);
+}
+/* Botão accent volta a ter texto branco (o .cta global o havia escurecido). */
+.cta-accent {
+  color: #ffffff;
+}
+/* Labels de formulário no escuro. */
+.form-field label,
+.contact-form label,
+.page label {
+  color: rgba(244, 241, 234, 0.72);
+}
+
+/* Rodapé alinhado ao header (mesmo container 1200). */
+.site-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header: SEM fundo no topo (faz parte da seção); fundo só ao rolar. */
+.site-header {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: background 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease;
+}
+.site-header.is-scrolled {
+  background: rgba(12, 11, 10, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: rgba(244, 241, 234, 0.12);
+}
+
+/* Pilares (Sobre) — mais respiro e hierarquia (texto não fica colado). */
+.about-pillars {
+  gap: clamp(1.5rem, 2.4vw, 2.4rem);
+}
+.about-pillar {
+  padding: clamp(28px, 3.2vw, 44px);
+  border-radius: 14px;
+}
+.about-pillar-num {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  color: #cdbfa8;
+  margin-bottom: 1.5rem;
+}
+.about-pillar h3 {
+  font-size: clamp(1.5rem, 1.9vw, 1.9rem);
+  line-height: 1.15;
+  margin: 0 0 0.9rem;
+}
+.about-pillar p {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ============================================================================
+   BOTÃO CLEAN — contorno fino, sem animação de moldura. Hover discreto
+   (preenche claro / texto escuro). Uso: class="frame-btn"><span>Texto</span>
+   ============================================================================ */
+.frame-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  border: 1px solid rgba(244, 241, 234, 0.55);
+  color: #f4f1ea;
+  background: transparent;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.84rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  line-height: 1.1;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.frame-btn:hover {
+  background: #f4f1ea;
+  color: #14120f;
+  border-color: #f4f1ea;
+}
+.frame-btn > span {
+  display: inline-block;
 }
 

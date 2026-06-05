@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import Testimonials from "@/components/Testimonials";
+import FrameButton from "@/components/FrameButton";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 
@@ -61,12 +61,8 @@ export default function SobrePage() {
             Vamos conversar sobre o <em>seu projeto?</em>
           </h2>
           <div className="project-cta-actions">
-            <Link href="/contato" className="cta cta-accent">
-              Entrar em contato
-            </Link>
-            <Link href="/projetos" className="cta-ghost">
-              Ver projetos
-            </Link>
+            <FrameButton href="/contato">Entrar em contato</FrameButton>
+            <FrameButton href="/projetos">Ver projetos</FrameButton>
           </div>
         </section>
       </main>

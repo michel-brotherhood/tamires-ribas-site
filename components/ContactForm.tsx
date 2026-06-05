@@ -10,6 +10,7 @@
  */
 
 import { FormEvent, useState } from "react";
+import FrameButton from "@/components/FrameButton";
 
 const WHATSAPP = "5521985978830"; // +55 21 98597-8830
 
@@ -82,13 +83,9 @@ export default function ContactForm() {
           </a>
           .
         </p>
-        <button
-          type="button"
-          className="cta-ghost"
-          onClick={() => setSent(false)}
-        >
+        <FrameButton type="button" onClick={() => setSent(false)}>
           Enviar outra mensagem
-        </button>
+        </FrameButton>
       </div>
     );
   }
@@ -137,9 +134,9 @@ export default function ContactForm() {
         {errors.message && <span className="form-error">{errors.message}</span>}
       </div>
 
-      <button type="submit" className="cta cta-accent form-submit">
+      <FrameButton type="submit" className="form-submit">
         Falar no WhatsApp
-      </button>
+      </FrameButton>
     </form>
   );
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import FrameButton from "@/components/FrameButton";
 
 export const metadata: Metadata = {
   title: "Página não encontrada — TR Arquitetura e Interiores",
@@ -18,12 +18,8 @@ export default function NotFound() {
           Vamos te levar de volta a um lugar conhecido.
         </p>
         <div className="notfound-actions">
-          <Link href="/" className="cta cta-accent">
-            Voltar ao início
-          </Link>
-          <Link href="/projetos" className="cta-ghost">
-            Ver projetos
-          </Link>
+          <FrameButton href="/">Voltar ao início</FrameButton>
+          <FrameButton href="/projetos">Ver projetos</FrameButton>
         </div>
       </div>
     </main>
