@@ -3142,67 +3142,63 @@ main,
   display: inline-block;
 }
 
-/* Variante do botão do HERO — FINO e CLEAN com EFEITO DE BORDA: no repouso uma
-   linha bem fina; ao passar o cursor, duas linhas claras "desenham" o perímetro
-   a partir de cantos opostos (topo+esquerda e base+direita) e se encontram —
-   como uma moldura sendo traçada. Arquitetônico e elegante. */
+/* Variante do botão do HERO — efeito TISEPSE (Uiverse) adaptado on-brand:
+   no repouso só os CANTOS da borda aparecem (duas "tampas" cor da face cobrem
+   o resto); no hover a tampa vertical recolhe (revela as laterais) e, com
+   atraso, a horizontal recolhe (revela topo/base) — a moldura completa em dois
+   tempos. Face ink + borda creme (a tampa precisa de uma face sólida atrás). */
 .frame-btn.btn-glow {
   position: relative;
-  padding: 12px 30px;
-  border-radius: 6px;
-  border: 1px solid rgba(244, 241, 234, 0.28);
-  color: rgba(244, 241, 234, 0.92);
-  background: transparent;
+  display: inline-block;
+  padding: 15px 32px;
+  border: 2px solid #f4f1ea;
+  border-radius: 0;
+  background-color: #1a1712;
+  color: #f4f1ea;
   text-transform: uppercase;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  transition: color 0.35s ease, letter-spacing 0.35s ease;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
 }
-.frame-btn.btn-glow > span {
-  position: relative;
-  z-index: 2;
+.frame-btn.btn-glow::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% - 12px);
+  background-color: #1a1712;
+  transform: scaleY(1);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1;
 }
-.frame-btn.btn-glow::before,
+.frame-btn.btn-glow:hover::before {
+  transform: scaleY(0);
+}
 .frame-btn.btn-glow::after {
   content: "";
   position: absolute;
-  z-index: 1;
-  width: 0;
-  height: 0;
-  border-radius: 6px;
-  box-sizing: border-box;
-  pointer-events: none;
-  transition: width 0.28s ease, height 0.28s ease;
+  left: 6px;
+  top: -2px;
+  height: calc(100% + 4px);
+  width: calc(100% - 12px);
+  background-color: #1a1712;
+  transform: scaleX(1);
+  transition: transform 0.3s ease-in-out 0.5s;
+  z-index: 2;
 }
-.frame-btn.btn-glow::before {
-  top: -1px;
-  left: -1px;
-  border-top: 1px solid #f4f1ea;
-  border-left: 1px solid #f4f1ea;
-}
-.frame-btn.btn-glow::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 1px solid #f4f1ea;
-  border-right: 1px solid #f4f1ea;
-}
-.frame-btn.btn-glow:hover {
-  color: #f4f1ea;
-  letter-spacing: 0.2em;
-}
-.frame-btn.btn-glow:hover::before,
 .frame-btn.btn-glow:hover::after {
-  width: calc(100% + 2px);
-  height: calc(100% + 2px);
+  transform: scaleX(0);
+}
+.frame-btn.btn-glow > span {
+  position: relative;
+  z-index: 3;
 }
 @media (prefers-reduced-motion: reduce) {
-  .frame-btn.btn-glow {
-    transition: color 0.3s ease;
-  }
   .frame-btn.btn-glow::before,
   .frame-btn.btn-glow::after {
     transition: none;
+    transform: scale(0);
   }
 }
 
