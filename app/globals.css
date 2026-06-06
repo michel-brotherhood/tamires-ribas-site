@@ -3142,75 +3142,38 @@ main,
   display: inline-block;
 }
 
-/* Variante do botão do HERO — animação ON-BRAND: o preenchimento creme VARRE
-   da esquerda e um REFLEXO de luz cruza o botão (luz passando por uma
-   superfície — tema arquitetura). Sombra quente discreta. Sem neon. */
+/* Variante do botão do HERO — CAIXA 3D em relevo (on-brand): face creme com
+   texto escuro e uma SOMBRA SÓLIDA deslocada em taupe (visível sobre o fundo
+   escuro) que dá o relevo. No hover a caixa "afunda" 3px na sombra; no clique
+   encosta de vez. Tátil e moderno, sem neon. */
 .frame-btn.btn-glow {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  padding: 14px 32px;
+  padding: 15px 34px;
   border-radius: 8px;
-  border: 1px solid rgba(244, 241, 234, 0.55);
-  color: rgba(244, 241, 234, 0.9);
-  background: transparent;
+  border: 1px solid rgba(26, 23, 18, 0.22);
+  color: #1a1712;
+  background: #f4f1ea;
   text-transform: uppercase;
   font-size: 0.84rem;
   font-weight: 500;
   letter-spacing: 0.12em;
-  transition: color 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
-}
-.frame-btn.btn-glow > span {
-  position: relative;
-  z-index: 2;
-}
-/* Preenchimento creme que varre da esquerda. */
-.frame-btn.btn-glow::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: #f4f1ea;
-  transform: translateX(-101%);
-  transition: transform 0.5s cubic-bezier(0.7, 0, 0.2, 1);
-}
-/* Reflexo de luz (gleam) que cruza o botão. */
-.frame-btn.btn-glow::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 45%;
-  height: 100%;
-  background: linear-gradient(
-    100deg,
-    transparent,
-    rgba(255, 255, 255, 0.45),
-    transparent
-  );
-  transform: translateX(-180%) skewX(-18deg);
-  pointer-events: none;
+  box-shadow: 6px 6px 0 0 #827b6f;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
 }
 .frame-btn.btn-glow:hover {
-  color: #1a1712;
-  border-color: #f4f1ea;
-  box-shadow: 0 12px 34px -14px rgba(202, 191, 171, 0.6),
-    0 0 44px -12px rgba(202, 191, 171, 0.5);
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0 0 #827b6f;
 }
-.frame-btn.btn-glow:hover::before {
-  transform: translateX(0);
-}
-.frame-btn.btn-glow:hover::after {
-  transform: translateX(340%) skewX(-18deg);
-  transition: transform 0.7s ease 0.15s;
+.frame-btn.btn-glow:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0 0 0 0 #827b6f;
 }
 @media (prefers-reduced-motion: reduce) {
-  .frame-btn.btn-glow::before {
-    transition: none;
+  .frame-btn.btn-glow {
+    transition: box-shadow 0.16s ease;
   }
-  .frame-btn.btn-glow::after {
-    display: none;
+  .frame-btn.btn-glow:hover {
+    transform: none;
+    box-shadow: 4px 4px 0 0 #827b6f;
   }
 }
 
