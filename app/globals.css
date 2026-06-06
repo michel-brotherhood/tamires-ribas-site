@@ -3142,37 +3142,67 @@ main,
   display: inline-block;
 }
 
-/* Variante do botão do HERO — FINO e CLEAN: linha fina (fantasma) no repouso;
-   no hover preenche em creme com uma leve subida e sombra suave. Elegante. */
+/* Variante do botão do HERO — FINO e CLEAN com EFEITO DE BORDA: no repouso uma
+   linha bem fina; ao passar o cursor, duas linhas claras "desenham" o perímetro
+   a partir de cantos opostos (topo+esquerda e base+direita) e se encontram —
+   como uma moldura sendo traçada. Arquitetônico e elegante. */
 .frame-btn.btn-glow {
+  position: relative;
   padding: 12px 30px;
   border-radius: 6px;
-  border: 1px solid rgba(244, 241, 234, 0.5);
+  border: 1px solid rgba(244, 241, 234, 0.28);
   color: rgba(244, 241, 234, 0.92);
   background: transparent;
   text-transform: uppercase;
   font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.16em;
-  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease,
-    box-shadow 0.35s ease, transform 0.35s ease;
+  transition: color 0.35s ease, letter-spacing 0.35s ease;
+}
+.frame-btn.btn-glow > span {
+  position: relative;
+  z-index: 2;
+}
+.frame-btn.btn-glow::before,
+.frame-btn.btn-glow::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 0;
+  height: 0;
+  border-radius: 6px;
+  box-sizing: border-box;
+  pointer-events: none;
+  transition: width 0.28s ease, height 0.28s ease;
+}
+.frame-btn.btn-glow::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid #f4f1ea;
+  border-left: 1px solid #f4f1ea;
+}
+.frame-btn.btn-glow::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid #f4f1ea;
+  border-right: 1px solid #f4f1ea;
 }
 .frame-btn.btn-glow:hover {
-  background: #f4f1ea;
-  color: #1a1712;
-  border-color: #f4f1ea;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px -10px rgba(0, 0, 0, 0.55);
+  color: #f4f1ea;
+  letter-spacing: 0.2em;
 }
-.frame-btn.btn-glow:active {
-  transform: translateY(0);
+.frame-btn.btn-glow:hover::before,
+.frame-btn.btn-glow:hover::after {
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
 }
 @media (prefers-reduced-motion: reduce) {
   .frame-btn.btn-glow {
-    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    transition: color 0.3s ease;
   }
-  .frame-btn.btn-glow:hover {
-    transform: none;
+  .frame-btn.btn-glow::before,
+  .frame-btn.btn-glow::after {
+    transition: none;
   }
 }
 
