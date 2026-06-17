@@ -193,7 +193,7 @@ export default function ImmersiveHome() {
             );
           })}
         </nav>
-        <div className="iv-menu-foot">+55 21 98597-8830</div>
+        <div className="iv-menu-foot">+55 21 96436-2282</div>
       </div>
     </div>
   );

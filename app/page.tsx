@@ -24,7 +24,7 @@ export default function Home() {
               Projetos residenciais de alto padrão que refletem personalidade,
               conforto e atemporalidade — pela arquiteta Tamires Ribas.
             </p>
-            <FrameButton href="https://wa.me/5521985978830" external className="btn-glow">
+            <FrameButton href="https://wa.me/5521964362282" external className="btn-glow">
               Falar com a Arquiteta
             </FrameButton>
           </div>

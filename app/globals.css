@@ -303,7 +303,9 @@ html.aurea-ready [data-section="hero"] .cta {
 }
 
 .tr-dock-item {
+  display: block;
   text-align: left;
+  text-decoration: none;
   padding: 11px 14px;
   border-radius: 10px;
   border: 1px solid rgba(130, 123, 111, 0.28);
@@ -313,23 +315,20 @@ html.aurea-ready [data-section="hero"] .cta {
   cursor: pointer;
   opacity: 0;
   transform: translateY(6px);
-  transition: opacity 0.3s ease, transform 0.3s ease,
-    background-color 0.2s ease, border-color 0.2s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .tr-dock.is-open .tr-dock-item {
   opacity: 1;
   transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease,
+    background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
 
-.tr-dock-item {
-  display: block;
-  text-decoration: none;
-}
-
-.tr-dock-item:hover {
-  background: rgba(130, 123, 111, 0.12);
+.tr-dock.is-open .tr-dock-item:hover {
+  background: rgba(130, 123, 111, 0.18);
   border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* ============================================================================

@@ -152,7 +152,7 @@ export default function Header() {
 
           {/* Rodapé do overlay */}
           <div className="text-sm text-ink/45">
-            <p>+55 21 98597-8830</p>
+            <p>+55 21 96436-2282</p>
             <p className="mt-1">© TR Arquitetura e Interiores</p>
           </div>
         </div>

@@ -12,7 +12,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
-const PHONE = "5521985978830"; // +55 21 98597-8830
+const PHONE = "5521964362282"; // +55 21 96436-2282
 const WA_MSG =
   "Olá, Tamires! Gostaria de falar sobre o meu projeto de arquitetura.";
 

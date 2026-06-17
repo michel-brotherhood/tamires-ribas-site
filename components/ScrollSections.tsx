@@ -38,7 +38,7 @@ export default function ScrollSections() {
             conforto e atemporalidade — pela arquiteta Tamires Ribas.
           </p>
           <LineButton
-            href="https://wa.me/5521985978830"
+            href="https://wa.me/5521964362282"
             external
             reveal
           >
@@ -165,7 +165,7 @@ export default function ScrollSections() {
             aconchegante, acolhedor e funcional. Fale com a arquiteta.
           </p>
           <div className="flex flex-wrap items-center gap-4">
-            <LineButton href="https://wa.me/5521985978830" external>
+            <LineButton href="https://wa.me/5521964362282" external>
               Fale com a Arquiteta
             </LineButton>
           </div>
