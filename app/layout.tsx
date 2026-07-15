@@ -35,7 +35,14 @@ const sans = localFont({
   ],
 });
 
+/* Base p/ resolver URLs absolutas de Open Graph / Twitter. Em produção o Vercel
+   expõe o domínio; em dev cai no localhost. Remove o aviso de metadataBase. */
+const SITE_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "TR Arquitetura e Interiores — Muito Além de um Projeto",
   description:
     "Escritório da arquiteta Tamires Ribas, especializado em projetos residenciais de alto padrão. Arquitetura e interiores que refletem personalidade, conforto e atemporalidade.",
