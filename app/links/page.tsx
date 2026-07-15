@@ -37,12 +37,6 @@ const LINKS: LinkItem[] = [
     icon: "globe",
   },
   {
-    label: "Curso TR",
-    sub: "Entrar no grupo do WhatsApp",
-    href: "https://chat.whatsapp.com/H420mxEosxN9WdckocEDeX",
-    icon: "cap",
-  },
-  {
     label: "Localização",
     sub: "Charitas · Niterói · RJ",
     href: "https://www.google.com/maps/dir/Tamires+Ribas+Arquitetura+e+Interiores,+R.+Mal.+Raul+de+Albuquerque,+2+-+Cob+701+-+Charitas,+Niter%C3%B3i+-+RJ,+24370-025/tamires+ribas+arquitetura/@-22.9226561,-43.1332628,13z/data=!3m1!4b1!4m13!4m12!1m5!1m1!1s0x9983e732eaaaab:0x35ca824b33f33bd3!2m2!1d-43.092063!2d-22.9226614!1m5!1m1!1s0x9983e732eaaaab:0x35ca824b33f33bd3!2m2!1d-43.092063!2d-22.9226614?entry=tts&shorturl=1",
@@ -65,12 +59,6 @@ const ICONS = {
     <>
       <circle cx="12" cy="12" r="9" />
       <path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z" />
-    </>
-  ),
-  cap: (
-    <>
-      <path d="M22 10 12 5 2 10l10 5 10-5z" />
-      <path d="M6 12v4.5c0 1.1 2.7 2.5 6 2.5s6-1.4 6-2.5V12" />
     </>
   ),
   pin: (
@@ -122,7 +110,7 @@ export default function LinksPage() {
             draggable={false}
           />
           <h1 className="links-name">Tamires Ribas</h1>
-          <p className="links-role">Arquitetura e Interiores · Alto Padrão</p>
+          <p className="links-role">Arquitetura e Interiores</p>
         </header>
 
         <nav className="links-list" aria-label="Canais da TR">
