@@ -19,18 +19,34 @@ export default function SobrePage() {
       <SiteHeader />
 
       <main className="page">
-        <header className="page-hero">
-          <span className="section-index">Nossa Essência</span>
-          <h1 className="headline text-ink">
-            Muito além de um <em>projeto.</em>
-          </h1>
-          <p className="body-text mt-6">
-            Fundado há mais de 10 anos pela arquiteta Tamires Ribas, o escritório
-            TR Arquitetura e Interiores é especializado em projetos residenciais
-            de alto padrão. &ldquo;T&rdquo; e &ldquo;R&rdquo; resumem iniciais que
-            valorizam o relacionamento transparente e humano, alinhando o
-            desenvolvimento projetual ao que é essencial para o morador.
-          </p>
+        <header className="page-hero page-hero--about">
+          <div className="about-hero-text">
+            <span className="section-index">Nossa Essência</span>
+            <h1 className="headline text-ink">
+              Muito além de um <em>projeto.</em>
+            </h1>
+            <p className="body-text mt-6">
+              Fundado há mais de 10 anos pela arquiteta Tamires Ribas, o
+              escritório TR Arquitetura e Interiores é especializado em projetos
+              residenciais de alto padrão. &ldquo;T&rdquo; e &ldquo;R&rdquo;
+              resumem iniciais que valorizam o relacionamento transparente e
+              humano, alinhando o desenvolvimento projetual ao que é essencial
+              para o morador.
+            </p>
+            <p className="about-hero-sign">
+              Tamires Ribas — Arquiteta responsável
+            </p>
+          </div>
+
+          <figure className="about-portrait">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/foto-perfil-paginalinks.webp"
+              alt="Tamires Ribas, arquiteta responsável pela TR Arquitetura e Interiores"
+              className="about-portrait-img"
+              draggable={false}
+            />
+          </figure>
         </header>
 
         <section className="about-pillars">

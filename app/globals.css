@@ -1714,6 +1714,81 @@ html.aurea-ready [data-section="hero"] .cta {
   margin-top: 1rem;
 }
 
+/* Variante da página Sobre: texto + retrato da arquiteta lado a lado. */
+.page-hero--about {
+  max-width: none;
+  display: grid;
+  grid-template-columns: 1.25fr 0.85fr;
+  gap: clamp(32px, 5vw, 76px);
+  align-items: center;
+}
+
+.about-hero-text {
+  max-width: 620px;
+}
+
+.about-hero-sign {
+  margin-top: 1.6rem;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  color: rgba(244, 241, 234, 0.72);
+}
+
+.about-portrait {
+  position: relative;
+  justify-self: end;
+  width: 100%;
+  max-width: 360px;
+}
+
+/* Anel dourado difuso atrás do retrato (ecoa o halo da marca). */
+.about-portrait::before {
+  content: "";
+  position: absolute;
+  inset: -10% -10% -14% -10%;
+  border-radius: 30px;
+  background: radial-gradient(
+    circle at 50% 35%,
+    rgba(230, 196, 140, 0.22),
+    transparent 68%
+  );
+  filter: blur(8px);
+  z-index: -1;
+}
+
+.about-portrait-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 42%;
+  border-radius: 24px;
+  border: 1px solid rgba(244, 241, 234, 0.18);
+  box-shadow: 0 34px 74px -34px rgba(0, 0, 0, 0.75);
+}
+
+@media (max-width: 860px) {
+  .page-hero--about {
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 6vw, 44px);
+    justify-items: center;
+    text-align: center;
+  }
+
+  /* Na página Sobre, a foto vem antes do texto no mobile (apresenta a
+     arquiteta primeiro). Escopo em .page-hero--about para não afetar a home. */
+  .page-hero--about .about-hero-text {
+    order: 2;
+  }
+
+  .page-hero--about .about-portrait {
+    order: 1;
+    justify-self: center;
+    max-width: 280px;
+  }
+}
+
 .back-link {
   display: inline-block;
   margin-bottom: 2.5rem;
@@ -3446,6 +3521,45 @@ main,
 }
 .home-about .body-text {
   max-width: 62ch;
+}
+
+/* Essência com retrato da arquiteta (foto à esquerda, texto à direita). */
+.home-about-inner--split {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+.about-portrait--home {
+  justify-self: start;
+  max-width: 340px;
+}
+
+@media (max-width: 860px) {
+  .home-about-inner--split {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: clamp(28px, 6vw, 44px);
+  }
+
+  /* Na home, o texto vem antes da foto no mobile (continua a narrativa
+     do hero); a foto fecha a seção. */
+  .home-about-text {
+    order: 1;
+  }
+
+  .about-portrait--home {
+    order: 2;
+    justify-self: center;
+    max-width: 280px;
+  }
+
+  .home-about-inner--split .body-text {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* ============================================================================
