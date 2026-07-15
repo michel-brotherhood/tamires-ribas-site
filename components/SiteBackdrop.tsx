@@ -26,8 +26,10 @@ export default function SiteBackdrop() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [useVideo, setUseVideo] = useState(false);
 
-  // 360° tem o próprio viewer em tela cheia → some com o fundo lá.
-  const hidden = pathname?.startsWith("/experiencia-360");
+  // 360° tem o próprio viewer em tela cheia e a página de links tem o próprio
+  // fundo quente → some com o vídeo nessas rotas.
+  const hidden =
+    pathname?.startsWith("/experiencia-360") || pathname?.startsWith("/links");
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

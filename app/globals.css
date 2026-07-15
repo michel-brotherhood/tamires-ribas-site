@@ -1074,6 +1074,224 @@ html.aurea-ready [data-section="hero"] .cta {
 }
 
 /* ============================================================================
+   PÁGINA /links — hub de canais (estilo "linktree" premium, on-brand TR).
+   Fundo quente escuro com aura dourada (ecoa o halo da foto da arquiteta).
+   ============================================================================ */
+.links-page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(28px, 6vw, 64px) 20px;
+  overflow-x: hidden;
+  color: var(--paper);
+  background:
+    radial-gradient(
+      120% 80% at 50% -8%,
+      rgba(202, 191, 171, 0.2),
+      transparent 55%
+    ),
+    linear-gradient(180deg, #201a12 0%, #17120d 55%, #110d09 100%);
+}
+
+/* Halo dourado difuso atrás do card. */
+.links-aura {
+  position: absolute;
+  top: -6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(560px, 92vw);
+  height: 540px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(230, 196, 140, 0.26),
+    rgba(202, 191, 171, 0.09) 45%,
+    transparent 70%
+  );
+  filter: blur(24px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.links-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.links-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: clamp(22px, 5vw, 34px);
+}
+
+.links-avatar {
+  width: clamp(112px, 30vw, 132px);
+  height: clamp(112px, 30vw, 132px);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(244, 241, 234, 0.28);
+  box-shadow: 0 0 0 6px rgba(230, 196, 140, 0.1),
+    0 22px 54px -18px rgba(0, 0, 0, 0.72);
+}
+
+.links-name {
+  margin-top: 18px;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+}
+
+.links-role {
+  margin-top: 6px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: rgba(244, 241, 234, 0.66);
+}
+
+.links-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.link-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--paper);
+  background: rgba(244, 241, 234, 0.055);
+  border: 1px solid rgba(244, 241, 234, 0.14);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.25s ease, background 0.25s ease,
+    border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.link-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(244, 241, 234, 0.11);
+  border-color: rgba(244, 241, 234, 0.3);
+  box-shadow: 0 16px 34px -20px rgba(0, 0, 0, 0.8);
+}
+
+/* Botão de destaque (Solicitar orçamento) — dourado/bege da marca. */
+.link-btn--accent {
+  background: linear-gradient(135deg, #d9c6a3, #c6b38e);
+  border-color: transparent;
+  color: var(--ink);
+  box-shadow: 0 14px 32px -16px rgba(217, 198, 163, 0.6);
+}
+
+.link-btn--accent:hover {
+  background: linear-gradient(135deg, #e3d2b2, #cdbc96);
+  border-color: transparent;
+  box-shadow: 0 18px 40px -16px rgba(217, 198, 163, 0.72);
+}
+
+.link-btn-icon {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(244, 241, 234, 0.08);
+  border: 1px solid rgba(244, 241, 234, 0.12);
+}
+
+.link-btn--accent .link-btn-icon {
+  background: rgba(26, 23, 18, 0.09);
+  border-color: rgba(26, 23, 18, 0.14);
+}
+
+.link-btn-glyph {
+  width: 20px;
+  height: 20px;
+}
+
+.link-btn-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.link-btn-label {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.link-btn-sub {
+  font-size: 12px;
+  color: rgba(244, 241, 234, 0.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link-btn--accent .link-btn-sub {
+  color: rgba(26, 23, 18, 0.6);
+}
+
+.link-btn-arrow {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  opacity: 0.5;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.link-btn:hover .link-btn-arrow {
+  transform: translateX(3px);
+  opacity: 0.9;
+}
+
+.links-foot {
+  margin-top: clamp(28px, 6vw, 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.links-foot .brand-logo {
+  height: 26px;
+  width: auto;
+  opacity: 0.82;
+}
+
+.links-copy {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(244, 241, 234, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-btn,
+  .link-btn-arrow {
+    transition: none;
+  }
+}
+
+/* ============================================================================
    PÁGINAS INTERNAS — header/footer/conteúdo (Projetos, Sobre, Contato).
    ============================================================================ */
 
