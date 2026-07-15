@@ -12,7 +12,7 @@
 import { FormEvent, useState } from "react";
 import FrameButton from "@/components/FrameButton";
 
-const WHATSAPP = "5521985978830"; // +55 21 98597-8830
+const WHATSAPP = "5521964362282"; // +55 21 96436-2282
 
 const PROJECT_TYPES = [
   "Residencial",
@@ -79,7 +79,7 @@ export default function ContactForm() {
             rel="noopener noreferrer"
             className="link-accent"
           >
-            +55 21 98597-8830
+            +55 21 96436-2282
           </a>
           .
         </p>

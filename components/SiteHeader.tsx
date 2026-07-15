@@ -111,7 +111,7 @@ export default function SiteHeader() {
         </nav>
 
         <div className="site-overlay-foot">
-          <p>+55 21 98597-8830</p>
+          <p>+55 21 96436-2282</p>
           <p>© TR Arquitetura e Interiores</p>
         </div>
       </div>

@@ -34,11 +34,11 @@ export default function ContatoPage() {
             <div className="contact-item">
               <span className="contact-label">WhatsApp</span>
               <a
-                href="https://wa.me/5521985978830"
+                href="https://wa.me/5521964362282"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                +55 21 98597-8830
+                +55 21 96436-2282
               </a>
             </div>
             <div className="contact-item">
