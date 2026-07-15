@@ -8,6 +8,7 @@
 
 import Link from "next/link";
 import Logo from "@/components/Logo";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 
 export type PanoramaOption = {
   id: string;
@@ -32,7 +33,7 @@ export default function Experience360({
         </Link>
       </header>
 
-      <div className="panorama-select">
+      <section className="panorama-select">
         <span className="section-index">Tour 360°</span>
         <h1 className="panorama-title">Escolha um ambiente.</h1>
         <p className="panorama-note">
@@ -40,7 +41,7 @@ export default function Experience360({
         </p>
 
         <div className="panorama-options">
-          {options.map((opt) => (
+          {options.map((opt, i) => (
             <a
               key={opt.id}
               href={opt.url}
@@ -48,13 +49,30 @@ export default function Experience360({
               rel="noopener noreferrer"
               className="panorama-option"
             >
-              <span className="panorama-option-title">{opt.title}</span>
-              <span className="panorama-option-rooms">{opt.rooms}</span>
-              <span className="panorama-option-cta">Ver tour 360° →</span>
+              <span className="panorama-option-index" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="panorama-option-badge">360°</span>
+              <span className="panorama-option-body">
+                <span className="panorama-option-title">{opt.title}</span>
+                <span className="panorama-option-rooms">{opt.rooms}</span>
+              </span>
+              <span className="panorama-option-cta">
+                Ver tour
+                <span className="panorama-option-arrow" aria-hidden="true">
+                  →
+                </span>
+              </span>
             </a>
           ))}
         </div>
-      </div>
+      </section>
+
+      <footer className="panorama-foot">
+        © {new Date().getFullYear()} TR Arquitetura e Interiores
+      </footer>
+
+      <WhatsAppWidget />
     </main>
   );
 }
