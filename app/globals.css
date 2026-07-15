@@ -987,6 +987,92 @@ html.aurea-ready [data-section="hero"] .cta {
   }
 }
 
+/* Variante de seleção: sem viewer 360 embutido — três opções que apontam
+   para tours hospedados externamente (Chaos Cloud). Rola normalmente em vez
+   de ficar presa em tela cheia. */
+.panorama-page--select {
+  position: relative;
+  min-height: 100vh;
+  overflow: visible;
+}
+
+.panorama-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 140px clamp(20px, 6vw, 64px) 80px;
+}
+
+.panorama-select .section-index {
+  color: var(--accent);
+}
+
+.panorama-select .panorama-note {
+  margin-top: 0.75rem;
+  margin-bottom: 2.5rem;
+  max-width: 480px;
+}
+
+.panorama-options {
+  width: 100%;
+  max-width: 920px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.panorama-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 28px 26px;
+  border-radius: 20px;
+  text-align: left;
+  text-decoration: none;
+  background: rgba(244, 241, 234, 0.7);
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.3s ease, transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.panorama-option:hover {
+  transform: translateY(-4px);
+  background: rgba(244, 241, 234, 0.95);
+  border-color: var(--accent);
+}
+
+.panorama-option-title {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.panorama-option-rooms {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(17, 17, 17, 0.65);
+}
+
+.panorama-option-cta {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+@media (max-width: 480px) {
+  .panorama-select {
+    padding-top: 120px;
+  }
+}
+
 /* ============================================================================
    PÁGINAS INTERNAS — header/footer/conteúdo (Projetos, Sobre, Contato).
    ============================================================================ */

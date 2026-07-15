@@ -9,7 +9,7 @@ Site premium, cinematográfico e *scroll-driven* do escritório **TR Arquitetura
 ## ✨ Destaques
 
 - **Home scroll-driven** com um modelo 3D fixo que se move/gira conforme o scroll (GSAP ScrollTrigger), com intro cinematográfica e continuação girando no portfólio.
-- **Tour 360°** (`/experiencia-360`) — viewer equiretangular em Three.js puro, com troca de ambientes por abas e descoberta automática das imagens.
+- **Tour 360°** (`/experiencia-360`) — três opções que apontam para tours hospedados no Chaos Cloud (abrem em nova aba).
 - **Páginas internas:** Projetos (portfólio + página por projeto), Sobre (com depoimentos) e Contato.
 - **Identidade da marca TR:** cores (taupe `#827B6F` / bege `#CABFAB`), fontes (Glacial Indifference + Westmount), logos e copy oficiais.
 - **Contato via WhatsApp:** botão flutuante com painel e formulário que abre a conversa já preenchida.
@@ -95,7 +95,7 @@ Tudo em **[`lib/content.ts`](lib/content.ts)** — basta seguir o formato dos ex
 Substitua **`public/models/architecture.glb`** pelo modelo real (mantendo o nome). Materiais de vidro (nome com `glass`, `vidro`, `window`…) ficam transparentes; o resto, opaco.
 
 ### Tour 360°
-Solte imagens equiretangulares (proporção 2:1, `.webp`) em **`public/panoramas/`** — cada arquivo vira uma aba automaticamente (nome/ordem deduzidos por palavra-chave).
+As opções (título, ambientes e link) ficam em **`app/experiencia-360/page.tsx`**, no array `OPTIONS`. Cada uma aponta para um tour hospedado no Chaos Cloud e abre em nova aba.
 
 ### Marca (cores e fontes)
 - Cores: tokens em [`app/globals.css`](app/globals.css) (`:root`) e [`tailwind.config.ts`](tailwind.config.ts).
