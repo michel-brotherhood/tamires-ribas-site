@@ -1190,6 +1190,11 @@ html.aurea-ready [data-section="hero"] .cta {
   box-shadow: 0 16px 34px -20px rgba(0, 0, 0, 0.8);
 }
 
+/* Feedback tátil no toque (mobile não tem hover). */
+.link-btn:active {
+  transform: translateY(0) scale(0.99);
+}
+
 /* Botão de destaque (Solicitar orçamento) — dourado/bege da marca. */
 .link-btn--accent {
   background: linear-gradient(135deg, #d9c6a3, #c6b38e);
@@ -1281,13 +1286,17 @@ html.aurea-ready [data-section="hero"] .cta {
 .links-copy {
   font-size: 11px;
   letter-spacing: 0.08em;
-  color: rgba(244, 241, 234, 0.4);
+  color: rgba(244, 241, 234, 0.52);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .link-btn,
   .link-btn-arrow {
     transition: none;
+  }
+  .link-btn:hover,
+  .link-btn:active {
+    transform: none;
   }
 }
 
