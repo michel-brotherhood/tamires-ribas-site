@@ -3,22 +3,27 @@
  * -----------------------------------------------------------------------------
  * Conteúdo editável do site: PROJETOS (portfólio) e DEPOIMENTOS.
  *
- * ✅ É AQUI que você adiciona projetos de clientes e depoimentos depois.
+ * ✅ É AQUI que você adiciona novos projetos de clientes e depoimentos.
  *    Basta seguir o formato dos exemplos. As páginas se montam sozinhas.
  *
  * Imagens dos projetos: coloque em public/projetos/ e referencie o caminho
- * (ex.: "/projetos/casa-aurora-01.webp"). Se a imagem não existir, a página
- * mostra um placeholder elegante no lugar — nada quebra.
+ * (ex.: "/projetos/casa-camboinhas-01.webp"). Se a imagem não existir, a
+ * página mostra um placeholder elegante no lugar — nada quebra.
+ *
+ * location / year / area são opcionais: quando um projeto não tiver o dado
+ * (obra antiga, cliente que preferiu não informar etc.), simplesmente omita
+ * o campo — a página se ajusta sozinha e não mostra "undefined" nem traços
+ * soltos.
  * -----------------------------------------------------------------------------
  */
 
 export type Project = {
   slug: string; // usado na URL: /projetos/[slug]
   title: string;
-  location: string;
-  year: string;
-  category: string; // ex.: "Residencial", "Corporativo"
-  area: string; // ex.: "420 m²"
+  location?: string;
+  year?: string;
+  category: string; // ex.: "Residencial", "Comercial"
+  area?: string; // ex.: "420 m²"
   summary: string; // frase curta (cartão e topo da página)
   description: string[]; // parágrafos da página do projeto
   cover: string; // imagem de capa
@@ -33,65 +38,155 @@ export type Testimonial = {
   avatar?: string; // foto do cliente (opcional). Ex.: "/depoimentos/marina.webp"
 };
 
+/** Junta local, ano e área com " · ", pulando o que não existir. */
+export function projectMeta(p: Project): string {
+  return [p.location, p.year, p.area].filter(Boolean).join(" · ");
+}
+
 /* ============================================================================
-   PROJETOS (exemplos — substitua pelos reais)
+   PROJETOS — obras reais da TR Arquitetura e Interiores.
+   Os 3 primeiros aparecem em destaque na home ("Projetos recentes").
    ============================================================================ */
 export const PROJECTS: Project[] = [
   {
-    slug: "casa-aurora",
-    title: "Casa Aurora",
-    location: "Itu · SP",
-    year: "2025",
+    slug: "casa-camboinhas",
+    title: "Casa Camboinhas",
+    location: "Camboinhas · Niterói, RJ",
     category: "Residencial",
-    area: "420 m²",
     summary:
-      "Residência de três pavimentos que equilibra concreto aparente, madeira e grandes panos de vidro.",
+      "Residência contemporânea em concreto, madeira e pedra, com piscina, spa e área gourmet integradas ao jardim.",
     description: [
-      "A Casa Aurora nasce de um terreno em leve aclive, organizado em três pavimentos que acompanham a topografia.",
-      "A paleta de materiais — concreto aparente, madeira natural e vidro — foi escolhida para envelhecer bem e dialogar com a vegetação ao redor.",
-      "A circulação central conecta visualmente o jardim, as áreas sociais e os dormitórios, reforçando a sensação de continuidade entre interior e exterior.",
+      "A Casa Camboinhas equilibra volumes de concreto aparente com painéis de madeira ripada e revestimento em pedra, formando uma fachada sóbria que se abre totalmente para os fundos.",
+      "Piscina, spa e deck se conectam à área gourmet coberta, criando um percurso contínuo entre dentro e fora — pensado tanto para o dia a dia da família quanto para receber.",
+      "À noite, a iluminação cênica recorta os volumes e a lâmina d'água, reforçando o caráter escultórico do projeto.",
     ],
-    cover: "/projetos/casa-aurora-cover.webp",
+    cover: "/projetos/casa-camboinhas-cover.webp",
     gallery: [
-      "/projetos/casa-aurora-01.webp",
-      "/projetos/casa-aurora-02.webp",
-      "/projetos/casa-aurora-03.webp",
+      "/projetos/casa-camboinhas-01.webp",
+      "/projetos/casa-camboinhas-02.webp",
+      "/projetos/casa-camboinhas-03.webp",
+      "/projetos/casa-camboinhas-04.webp",
+      "/projetos/casa-camboinhas-05.webp",
     ],
   },
   {
-    slug: "residencia-mata",
-    title: "Residência Mata",
-    location: "Campos do Jordão · SP",
-    year: "2024",
+    slug: "apartamento-pablo-domingues",
+    title: "Apartamento Pablo Domingues",
     category: "Residencial",
-    area: "310 m²",
+    year: "2020",
     summary:
-      "Refúgio de montanha com volumes baixos, lareira central e aberturas voltadas à mata.",
+      "Apartamento em tons de azul-marinho e amadeirado, com cozinha americana integrada e ambientes sociais aconchegantes.",
     description: [
-      "Pensada como um refúgio, a Residência Mata privilegia volumes baixos e horizontais que se assentam no terreno.",
-      "A lareira central organiza o estar, enquanto as aberturas emolduram a mata nativa como uma pintura viva ao longo do dia.",
+      "O projeto parte de uma paleta de azul-marinho, creme e madeira natural para criar ambientes sociais aconchegantes e com identidade forte.",
+      "A cozinha americana com marcenaria clara se conecta à sala de jantar, enquanto a sala de estar ganha uma segunda composição de estar mais intimista, com tapete geométrico e poltronas de referência escandinava.",
+      "Quadros com paisagens do Rio de Janeiro reforçam a conexão do morador com a cidade.",
     ],
-    cover: "/projetos/residencia-mata-cover.webp",
+    cover: "/projetos/apartamento-pablo-domingues-cover.webp",
     gallery: [
-      "/projetos/residencia-mata-01.webp",
-      "/projetos/residencia-mata-02.webp",
+      "/projetos/apartamento-pablo-domingues-01.webp",
+      "/projetos/apartamento-pablo-domingues-02.webp",
+      "/projetos/apartamento-pablo-domingues-03.webp",
+      "/projetos/apartamento-pablo-domingues-04.webp",
+      "/projetos/apartamento-pablo-domingues-05.webp",
     ],
   },
   {
-    slug: "pavilhao-corporativo",
-    title: "Pavilhão Corporativo",
-    location: "São Paulo · SP",
-    year: "2023",
-    category: "Corporativo",
-    area: "1.200 m²",
+    slug: "apartamento-niteroi",
+    title: "Apartamento Niterói",
+    location: "Niterói, RJ",
+    category: "Residencial",
     summary:
-      "Sede corporativa com fachada modular, pátio interno e luz natural difusa nos ambientes de trabalho.",
+      "Apartamento familiar com suíte em madeira natural, banheiro infantil colorido e quarto temático para as crianças.",
     description: [
-      "O Pavilhão Corporativo propõe um ambiente de trabalho permeado por luz natural difusa e áreas de convívio.",
-      "A fachada modular controla a incidência solar e cria um ritmo sóbrio, enquanto o pátio interno traz vegetação ao coração do edifício.",
+      "Pensado para uma rotina em família, o apartamento une a suíte principal — revestida em madeira natural, com iluminação pontual em pendentes globo — a um banheiro social lúdico, com azulejos coloridos em composição geométrica.",
+      "O quarto das crianças ganhou beliche sob medida e parede temática de exploração espacial, com nichos iluminados para os brinquedos.",
+      "Em todos os ambientes, a marcenaria clara e os toques de latão costuram a identidade do projeto, do quarto principal ao infantil.",
     ],
-    cover: "/projetos/pavilhao-corporativo-cover.webp",
-    gallery: ["/projetos/pavilhao-corporativo-01.webp"],
+    cover: "/projetos/apartamento-niteroi-cover.webp",
+    gallery: [
+      "/projetos/apartamento-niteroi-01.webp",
+      "/projetos/apartamento-niteroi-02.webp",
+      "/projetos/apartamento-niteroi-03.webp",
+      "/projetos/apartamento-niteroi-04.webp",
+      "/projetos/apartamento-niteroi-05.webp",
+    ],
+  },
+  {
+    slug: "apartamento-santa-rosa",
+    title: "Apartamento Santa Rosa",
+    location: "Santa Rosa · Niterói, RJ",
+    year: "2022",
+    category: "Residencial",
+    summary:
+      "Cozinha e áreas de apoio renovadas com marcenaria verde-sálvia, ferragens douradas e bancadas em quartzo branco.",
+    description: [
+      "A reforma da cozinha adotou marcenaria verde-sálvia com portas de vidro canelado, contrastando com bancadas em quartzo branco e ferragens douradas.",
+      "Um nicho iluminado em madeira natural abriga potes e utensílios do dia a dia, enquanto a bancada de refeições rápidas se conecta ao living por uma abertura ampla.",
+      "No lavabo, um espelho circular emoldurado em madeira e ladrilhos geométricos em tons pastel completam a identidade do projeto.",
+    ],
+    cover: "/projetos/apartamento-santa-rosa-cover.webp",
+    gallery: [
+      "/projetos/apartamento-santa-rosa-01.webp",
+      "/projetos/apartamento-santa-rosa-02.webp",
+      "/projetos/apartamento-santa-rosa-03.webp",
+      "/projetos/apartamento-santa-rosa-04.webp",
+    ],
+  },
+  {
+    slug: "apartamento-icarai",
+    title: "Apartamento Icaraí",
+    location: "Icaraí · Niterói, RJ",
+    category: "Residencial · Reforma",
+    summary:
+      "Reforma de banheiros com travertino, torneiras douradas e composições vegetais que trazem leveza ao ambiente.",
+    description: [
+      "A reforma dos banheiros do apartamento explorou o travertino como fio condutor, combinado a torneiras e metais dourados que aquecem a paleta neutra.",
+      "Cubas de apoio, espelhos com iluminação embutida e composições com folhagens (como costela-de-adão e estrelítzia) trazem leveza aos ambientes.",
+      "O resultado são banheiros espaçosos, com iluminação em camadas e acabamento hotel-like.",
+    ],
+    cover: "/projetos/apartamento-icarai-cover.webp",
+    gallery: [
+      "/projetos/apartamento-icarai-01.webp",
+      "/projetos/apartamento-icarai-02.webp",
+      "/projetos/apartamento-icarai-03.webp",
+      "/projetos/apartamento-icarai-04.webp",
+    ],
+  },
+  {
+    slug: "clinica-juliane-passos",
+    title: "Clínica Juliane Passos",
+    category: "Comercial · Estética",
+    summary:
+      "Clínica de estética com marcenaria ripada, mármore Calacatta e iluminação dourada que reforçam a identidade da marca.",
+    description: [
+      "Na recepção, a logomarca em latão sobre mármore Calacatta e a marcenaria ripada em madeira natural criam a primeira impressão da clínica — sofisticada e acolhedora.",
+      "Nas salas de atendimento, mesas com estrutura em latão, cadeiras estofadas e arranjos florais mantêm a coerência visual em um ambiente clínico que não abre mão da elegância.",
+      "A iluminação em fita de LED embutida desenha o teto e reforça o caráter contemporâneo do projeto.",
+    ],
+    cover: "/projetos/clinica-juliane-passos-cover.webp",
+    gallery: [
+      "/projetos/clinica-juliane-passos-01.webp",
+      "/projetos/clinica-juliane-passos-02.webp",
+      "/projetos/clinica-juliane-passos-03.webp",
+      "/projetos/clinica-juliane-passos-04.webp",
+    ],
+  },
+  {
+    slug: "consultorio-cassia-jardim",
+    title: "Consultório Cássia Jardim",
+    category: "Comercial · Estética",
+    summary:
+      "Consultório com marcenaria ripada, nichos iluminados para objetos decorativos e sala de atendimento acolhedora.",
+    description: [
+      "O painel ripado com nichos iluminados organiza a decoração do consultório, valorizando peças cerâmicas e composições vegetais em meio à luz indireta.",
+      "Na sala de atendimento, a poltrona reclinável branca contrasta com a marcenaria em tom de madeira natural, criando um ambiente clínico que transmite cuidado e conforto.",
+    ],
+    cover: "/projetos/consultorio-cassia-jardim-cover.webp",
+    gallery: [
+      "/projetos/consultorio-cassia-jardim-01.webp",
+      "/projetos/consultorio-cassia-jardim-02.webp",
+      "/projetos/consultorio-cassia-jardim-03.webp",
+    ],
   },
 ];
 

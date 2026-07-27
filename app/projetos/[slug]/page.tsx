@@ -6,6 +6,7 @@ import SiteFooter from "@/components/SiteFooter";
 import SmartImage from "@/components/SmartImage";
 import FrameButton from "@/components/FrameButton";
 import ScrollReveal from "@/components/ScrollReveal";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 import { PROJECTS, getProject } from "@/lib/content";
 
 type Params = { params: { slug: string } };
@@ -44,18 +45,24 @@ export default function ProjectPage({ params }: Params) {
           <p className="body-text mt-6">{project.summary}</p>
 
           <dl className="project-facts">
-            <div>
-              <dt>Local</dt>
-              <dd>{project.location}</dd>
-            </div>
-            <div>
-              <dt>Ano</dt>
-              <dd>{project.year}</dd>
-            </div>
-            <div>
-              <dt>Área</dt>
-              <dd>{project.area}</dd>
-            </div>
+            {project.location && (
+              <div>
+                <dt>Local</dt>
+                <dd>{project.location}</dd>
+              </div>
+            )}
+            {project.year && (
+              <div>
+                <dt>Ano</dt>
+                <dd>{project.year}</dd>
+              </div>
+            )}
+            {project.area && (
+              <div>
+                <dt>Área</dt>
+                <dd>{project.area}</dd>
+              </div>
+            )}
             <div>
               <dt>Categoria</dt>
               <dd>{project.category}</dd>
@@ -97,6 +104,7 @@ export default function ProjectPage({ params }: Params) {
       </main>
 
       <SiteFooter />
+      <WhatsAppWidget />
     </div>
   );
 }

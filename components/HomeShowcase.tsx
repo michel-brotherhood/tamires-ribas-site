@@ -14,7 +14,7 @@ import Testimonials from "@/components/Testimonials";
 import ContactForm from "@/components/ContactForm";
 import FrameButton from "@/components/FrameButton";
 import Logo from "@/components/Logo";
-import { PROJECTS } from "@/lib/content";
+import { PROJECTS, projectMeta } from "@/lib/content";
 
 export default function HomeShowcase() {
   const projects = PROJECTS.slice(0, 3);
@@ -57,9 +57,9 @@ export default function HomeShowcase() {
               </div>
               <div className="project-card-body">
                 <h3 className="project-card-title">{p.title}</h3>
-                <p className="project-card-meta">
-                  {p.location} · {p.year} · {p.area}
-                </p>
+                {projectMeta(p) && (
+                  <p className="project-card-meta">{projectMeta(p)}</p>
+                )}
                 <p className="project-card-summary">{p.summary}</p>
                 <span className="project-card-link">Ver projeto →</span>
               </div>
