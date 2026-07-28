@@ -69,6 +69,26 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    slug: "vertice-rio",
+    title: "Vértice Rio",
+    category: "Comercial · Estética",
+    summary:
+      "Clínica multiespecialidade com 9 consultórios, sala de reuniões e identidade visual coesa em madeira natural.",
+    description: [
+      "Na recepção, a marca Vértice Rio ganha destaque em metal sobre mármore, dando o tom sofisticado que se repete em todos os consultórios do andar.",
+      "Cada um dos nove consultórios recebeu a mesma linguagem — marcenaria em madeira natural, iluminação indireta em fita de LED e nichos com plantas — garantindo identidade visual coesa mesmo com profissionais diferentes atendendo em cada sala.",
+      "Uma escada iluminada conecta os pavimentos e uma sala de reuniões/treinamento arrematam um projeto pensado para operar em grande escala sem perder o acolhimento.",
+    ],
+    cover: "/projetos/vertice-rio-cover.webp",
+    gallery: [
+      "/projetos/vertice-rio-01.webp",
+      "/projetos/vertice-rio-02.webp",
+      "/projetos/vertice-rio-03.webp",
+      "/projetos/vertice-rio-04.webp",
+      "/projetos/vertice-rio-05.webp",
+    ],
+  },
+  {
     slug: "apartamento-flamengo",
     title: "Apartamento Flamengo",
     location: "Flamengo · Rio de Janeiro, RJ",
@@ -322,6 +342,19 @@ export const PROJECTS: Project[] = [
       "/projetos/consultorio-cassia-jardim-02.webp",
       "/projetos/consultorio-cassia-jardim-03.webp",
     ],
+  },
+  {
+    slug: "mostra-way-design",
+    title: "Mostra Way Design",
+    category: "Mostra de Decoração",
+    summary:
+      "Ambiente de jantar assinado para a mostra Way Design, com mesa em mármore, cadeiras em madeira maciça e composição escultórica de arandelas.",
+    description: [
+      "Convidada a assinar um ambiente na mostra Way Design, a TR criou uma sala de jantar autoral: mesa de mármore sobre base em madeira, cadeiras torneadas e uma poltrona em terracota que quebra a paleta neutra.",
+      "Na parede, uma composição escultórica de arandelas em latão cria um contraponto de luz e textura ao painel ripado em madeira que emoldura o espelho de apoio.",
+    ],
+    cover: "/projetos/mostra-way-design-cover.webp",
+    gallery: ["/projetos/mostra-way-design-01.webp"],
   },
 ];
 
