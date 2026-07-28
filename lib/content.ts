@@ -359,6 +359,10 @@ export const PROJECTS: Project[] = [
       "/projetos/casa-camboinhas-03.webp",
       "/projetos/casa-camboinhas-04.webp",
       "/projetos/casa-camboinhas-05.webp",
+      "/projetos/casa-camboinhas-06.webp",
+      "/projetos/casa-camboinhas-07.webp",
+      "/projetos/casa-camboinhas-08.webp",
+      "/projetos/casa-camboinhas-09.webp",
     ],
   },
   {
@@ -468,6 +472,10 @@ export const PROJECTS: Project[] = [
       "/projetos/apartamento-icarai-02.webp",
       "/projetos/apartamento-icarai-03.webp",
       "/projetos/apartamento-icarai-04.webp",
+      "/projetos/apartamento-icarai-05.webp",
+      "/projetos/apartamento-icarai-06.webp",
+      "/projetos/apartamento-icarai-07.webp",
+      "/projetos/apartamento-icarai-08.webp",
     ],
   },
   {
