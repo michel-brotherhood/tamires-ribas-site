@@ -5,7 +5,7 @@ import SiteFooter from "@/components/SiteFooter";
 import SmartImage from "@/components/SmartImage";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
-import { PROJECTS } from "@/lib/content";
+import { PROJECTS, projectMeta } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Projetos — TR Arquitetura e Interiores",
@@ -50,9 +50,9 @@ export default function ProjetosPage() {
             <div className="project-featured-body">
               <span className="section-index">Em destaque · {featured.category}</span>
               <h2 className="project-featured-title">{featured.title}</h2>
-              <p className="project-card-meta">
-                {featured.location} · {featured.year} · {featured.area}
-              </p>
+              {projectMeta(featured) && (
+                <p className="project-card-meta">{projectMeta(featured)}</p>
+              )}
               <p className="project-card-summary">{featured.summary}</p>
               <span className="project-card-link">Ver projeto →</span>
             </div>
@@ -79,9 +79,9 @@ export default function ProjetosPage() {
                 </div>
                 <div className="project-card-body">
                   <h2 className="project-card-title">{p.title}</h2>
-                  <p className="project-card-meta">
-                    {p.location} · {p.year} · {p.area}
-                  </p>
+                  {projectMeta(p) && (
+                    <p className="project-card-meta">{projectMeta(p)}</p>
+                  )}
                   <p className="project-card-summary">{p.summary}</p>
                   <span className="project-card-link">Ver projeto →</span>
                 </div>

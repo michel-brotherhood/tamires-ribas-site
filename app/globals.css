@@ -3575,6 +3575,11 @@ main,
 .cta-accent {
   color: #ffffff;
 }
+/* Ficha técnica do projeto (Local/Ano/Área/Categoria) — valor em --ink
+   (escuro) ficava ilegível sobre o vídeo de fundo escuro. */
+.project-facts dd {
+  color: rgba(244, 241, 234, 0.92);
+}
 /* Labels de formulário no escuro. */
 .form-field label,
 .contact-form label,
