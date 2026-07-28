@@ -7,6 +7,7 @@ import SmartImage from "@/components/SmartImage";
 import FrameButton from "@/components/FrameButton";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
+import ProjectGallery from "@/components/ProjectGallery";
 import { PROJECTS, getProject } from "@/lib/content";
 
 type Params = { params: { slug: string } };
@@ -80,17 +81,7 @@ export default function ProjectPage({ params }: Params) {
           ))}
         </section>
 
-        {project.gallery.length > 0 && (
-          <section className="project-gallery">
-            {project.gallery.map((img, i) => (
-              <SmartImage
-                key={i}
-                src={img}
-                alt={`${project.title} — imagem ${i + 1}`}
-              />
-            ))}
-          </section>
-        )}
+        <ProjectGallery images={project.gallery} alt={project.title} />
 
         <section data-reveal className="project-cta">
           <h2 className="headline-md text-ink">
