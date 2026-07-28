@@ -71,13 +71,13 @@ export const PROJECTS: Project[] = [
   {
     slug: "vertice-rio",
     title: "Vértice Rio",
-    category: "Comercial · Estética",
+    category: "Comercial",
     summary:
       "Clínica multiespecialidade com 9 consultórios, sala de reuniões e identidade visual coesa em madeira natural.",
     description: [
       "Na recepção, a marca Vértice Rio ganha destaque em metal sobre mármore, dando o tom sofisticado que se repete em todos os consultórios do andar.",
-      "Cada um dos nove consultórios recebeu a mesma linguagem — marcenaria em madeira natural, iluminação indireta em fita de LED e nichos com plantas — garantindo identidade visual coesa mesmo com profissionais diferentes atendendo em cada sala.",
-      "Uma escada iluminada conecta os pavimentos e uma sala de reuniões/treinamento arrematam um projeto pensado para operar em grande escala sem perder o acolhimento.",
+      "Cada um dos nove consultórios recebeu a mesma linguagem — marcenaria em madeira natural, iluminação indireta em fita de LED, poltronas reclináveis e nichos com plantas — garantindo identidade visual coesa mesmo com profissionais diferentes atendendo em cada sala.",
+      "Uma escada iluminada conecta os pavimentos, e a sala de espera ganhou uma parede viva de plantas ao lado do sofá — um respiro verde antes da sala de reuniões/treinamento que arremata um projeto pensado para operar em grande escala sem perder o acolhimento.",
     ],
     cover: "/projetos/vertice-rio-cover.webp",
     gallery: [
@@ -86,6 +86,9 @@ export const PROJECTS: Project[] = [
       "/projetos/vertice-rio-03.webp",
       "/projetos/vertice-rio-04.webp",
       "/projetos/vertice-rio-05.webp",
+      "/projetos/vertice-rio-06.webp",
+      "/projetos/vertice-rio-07.webp",
+      "/projetos/vertice-rio-08.webp",
     ],
   },
   {
