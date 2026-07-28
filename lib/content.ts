@@ -49,6 +49,141 @@ export function projectMeta(p: Project): string {
    ============================================================================ */
 export const PROJECTS: Project[] = [
   {
+    slug: "casa-rafaella-leandro",
+    title: "Casa Rafaella e Leandro",
+    category: "Residencial",
+    summary:
+      "Casa contemporânea com pé-direito duplo, escada escultórica em espiral, piscina e placas solares.",
+    description: [
+      "A casa se organiza em torno de um living de pé-direito duplo, iluminado por painéis ripados de madeira e uma escada em espiral que se torna o elemento escultórico central do projeto.",
+      "A sala de jantar ganha uma adega envidraçada embutida e telas de arte contemporânea que dialogam com o verde visto pelas esquadrias amplas — tudo integrado à cozinha aberta e à área de piscina nos fundos.",
+      "Vista aérea revela ainda a cobertura com placas solares, reforçando o compromisso do projeto com eficiência energética sem abrir mão do design autoral.",
+    ],
+    cover: "/projetos/casa-rafaella-leandro-cover.webp",
+    gallery: [
+      "/projetos/casa-rafaella-leandro-01.webp",
+      "/projetos/casa-rafaella-leandro-02.webp",
+      "/projetos/casa-rafaella-leandro-03.webp",
+      "/projetos/casa-rafaella-leandro-04.webp",
+      "/projetos/casa-rafaella-leandro-05.webp",
+    ],
+  },
+  {
+    slug: "apartamento-flamengo",
+    title: "Apartamento Flamengo",
+    location: "Flamengo · Rio de Janeiro, RJ",
+    category: "Residencial",
+    summary:
+      "Apartamento colorido e cheio de personalidade, com cozinha em laca verde-petróleo e cantinho musical com instrumentos na parede.",
+    description: [
+      "A cozinha em laca verde-petróleo com bancada em mármore é o contraponto vibrante de um apartamento que também investe em painéis 3D de gesso, quadros autorais e composições com plantas.",
+      "Um canto dedicado à música — com violões pendurados como elementos decorativos — mostra como o projeto se molda à personalidade de quem mora ali.",
+      "Na sala de jantar, pendentes em esfera e uma mesa em madeira maciça reúnem a família em um ambiente ao mesmo tempo sofisticado e descontraído.",
+    ],
+    cover: "/projetos/apartamento-flamengo-cover.webp",
+    gallery: [
+      "/projetos/apartamento-flamengo-01.webp",
+      "/projetos/apartamento-flamengo-02.webp",
+      "/projetos/apartamento-flamengo-03.webp",
+      "/projetos/apartamento-flamengo-04.webp",
+    ],
+  },
+  {
+    slug: "apartamento-renata-emerson",
+    title: "Apartamento Renata e Emerson",
+    location: "Niterói, RJ",
+    category: "Residencial",
+    summary:
+      "Apartamento autoral com sofá verde-esmeralda, arte editorial em preto e branco e jardim vertical na varanda.",
+    description: [
+      "O sofá de veludo verde-esmeralda e a curadoria de arte em preto e branco — com destaque para um retrato gráfico de borboleta — dão o tom autoral deste projeto.",
+      "Na varanda, um jardim vertical transforma a área externa em uma extensão viva do apartamento, criando um refúgio verde em meio à cidade.",
+      "Na cozinha, papel de parede botânico em preto e branco reforça a identidade visual marcante que percorre todos os ambientes.",
+    ],
+    cover: "/projetos/apartamento-renata-emerson-cover.webp",
+    gallery: [
+      "/projetos/apartamento-renata-emerson-01.webp",
+      "/projetos/apartamento-renata-emerson-02.webp",
+      "/projetos/apartamento-renata-emerson-03.webp",
+      "/projetos/apartamento-renata-emerson-04.webp",
+    ],
+  },
+  {
+    slug: "apartamento-raquel-renato",
+    title: "Apartamento Raquel e Renato",
+    category: "Residencial",
+    summary:
+      "Apartamento cercado de verde, com quartos infantis lúdicos e varanda gourmet integrada ao jardim.",
+    description: [
+      "Cercado por vegetação exuberante vista de praticamente todos os ambientes, o apartamento equilibra áreas sociais leves com quartos infantis cheios de cor — um deles com parede ilustrada de mapa-múndi.",
+      "A cozinha ganhou marcenaria branca com detalhes em turquesa, enquanto a varanda gourmet se abre totalmente para o jardim, esticando o convívio para fora dos limites do apartamento.",
+      "Cada dormitório infantil recebeu uma identidade própria — de um cantinho de estudos lúdico a um quarto com parede ilustrada de mapa-múndi — sem perder a coerência com o restante do projeto.",
+    ],
+    cover: "/projetos/apartamento-raquel-renato-cover.webp",
+    gallery: [
+      "/projetos/apartamento-raquel-renato-01.webp",
+      "/projetos/apartamento-raquel-renato-02.webp",
+      "/projetos/apartamento-raquel-renato-03.webp",
+      "/projetos/apartamento-raquel-renato-04.webp",
+    ],
+  },
+  {
+    slug: "apartamento-raquel-conrado",
+    title: "Apartamento Raquel e Conrado",
+    category: "Residencial",
+    summary:
+      "Apartamento com varanda de jardim vertical e vista aberta para a cidade, em paleta clara e amadeirada.",
+    description: [
+      "A varanda ganhou um jardim vertical que emoldura a vista aberta para a cidade, criando um respiro verde para a sala de estar integrada.",
+      "Os dormitórios recebem tons suaves — do verde-sálvia ao terracota — e amplas esquadrias que garantem luz natural em qualquer horário do dia.",
+      "Nos banheiros, madeira natural e metais em tom quente completam uma paleta clara e serena, coerente do quarto principal ao lavabo.",
+    ],
+    cover: "/projetos/apartamento-raquel-conrado-cover.webp",
+    gallery: [
+      "/projetos/apartamento-raquel-conrado-01.webp",
+      "/projetos/apartamento-raquel-conrado-02.webp",
+      "/projetos/apartamento-raquel-conrado-03.webp",
+      "/projetos/apartamento-raquel-conrado-04.webp",
+    ],
+  },
+  {
+    slug: "apartamento-rose-telmo",
+    title: "Apartamento Rose e Telmo",
+    category: "Residencial",
+    summary:
+      "Apartamento compacto com dois dormitórios de personalidades opostas — um em tons de rosa, outro em preto e cinza.",
+    description: [
+      "O quarto do casal aposta em tons de rosa suave, espelho circular iluminado e penteadeira compacta — um refúgio delicado e funcional.",
+      "Já o segundo dormitório inverte a paleta para preto, cinza e madeira, com marcenaria ripada e iluminação em pendente, criando um contraste proposital entre os dois ambientes.",
+      "A cozinha linear em madeira clara com iluminação embutida sob os armários completa um projeto que otimiza cada metro quadrado sem abrir mão de personalidade.",
+    ],
+    cover: "/projetos/apartamento-rose-telmo-cover.webp",
+    gallery: [
+      "/projetos/apartamento-rose-telmo-01.webp",
+      "/projetos/apartamento-rose-telmo-02.webp",
+      "/projetos/apartamento-rose-telmo-03.webp",
+      "/projetos/apartamento-rose-telmo-04.webp",
+    ],
+  },
+  {
+    slug: "apartamento-sandra-thiago",
+    title: "Apartamento Sandra e Thiago",
+    category: "Residencial",
+    summary:
+      "Ambiente social integrado com marcenaria ripada, parede de tijolinho aparente e bar de vidros e cristais.",
+    description: [
+      "A sala integrada combina teto em madeira com iluminação linear embutida, painel vazado em treliça e uma fotografia em preto e branco como peça de arte sobre o painel da TV.",
+      "No aparador ripado que divide sala e sala de jantar, espelhos de formas orgânicas emolduram o ambiente e refletem o lustre de latão sobre a mesa de jantar.",
+      "A parede de tijolinho aparente, com espelho circular emoldurado em madeira, traz textura e aconchego ao lavabo.",
+    ],
+    cover: "/projetos/apartamento-sandra-thiago-cover.webp",
+    gallery: [
+      "/projetos/apartamento-sandra-thiago-01.webp",
+      "/projetos/apartamento-sandra-thiago-02.webp",
+      "/projetos/apartamento-sandra-thiago-03.webp",
+    ],
+  },
+  {
     slug: "casa-camboinhas",
     title: "Casa Camboinhas",
     location: "Camboinhas · Niterói, RJ",
