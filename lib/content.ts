@@ -203,20 +203,20 @@ export const TESTIMONIALS: Testimonial[] = [
       "A TR traduziu em arquitetura exatamente a sensação de aconchego que buscávamos. Cada ambiente tem a nossa cara.",
     author: "Marina e Rafael",
     role: "Residência · Rio de Janeiro",
-    avatar: "/depoimentos/marina-rafael.webp",
+    avatar: "/depoimentos/tr-logo.webp",
   },
   {
     quote:
       "Profissionalismo do primeiro esboço à última visita de obra. O resultado superou o que imaginávamos.",
     author: "Helena Costa",
     role: "Residência Mata · Campos do Jordão",
-    avatar: "/depoimentos/helena.webp",
+    avatar: "/depoimentos/tr-logo.webp",
   },
   {
     quote:
       "Conseguiram unir identidade da marca e bem-estar dos times em um só projeto. Nosso escritório ganhou vida.",
     author: "Diretoria",
     role: "Pavilhão Corporativo · São Paulo",
-    avatar: "/depoimentos/diretoria.webp",
+    avatar: "/depoimentos/tr-logo.webp",
   },
 ];
