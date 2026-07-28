@@ -495,6 +495,10 @@ export const PROJECTS: Project[] = [
       "/projetos/clinica-juliane-passos-02.webp",
       "/projetos/clinica-juliane-passos-03.webp",
       "/projetos/clinica-juliane-passos-04.webp",
+      "/projetos/clinica-juliane-passos-05.webp",
+      "/projetos/clinica-juliane-passos-06.webp",
+      "/projetos/clinica-juliane-passos-07.webp",
+      "/projetos/clinica-juliane-passos-08.webp",
     ],
   },
   {
@@ -512,6 +516,9 @@ export const PROJECTS: Project[] = [
       "/projetos/consultorio-cassia-jardim-01.webp",
       "/projetos/consultorio-cassia-jardim-02.webp",
       "/projetos/consultorio-cassia-jardim-03.webp",
+      "/projetos/consultorio-cassia-jardim-04.webp",
+      "/projetos/consultorio-cassia-jardim-05.webp",
+      "/projetos/consultorio-cassia-jardim-06.webp",
     ],
   },
   {
