@@ -1018,7 +1018,9 @@ html.aurea-ready [data-section="hero"] .cta {
 }
 
 .panorama-select .section-index {
-  color: var(--accent);
+  /* --accent (#827b6f) sobre o fundo bege claro da página fica abaixo do
+     mínimo de contraste AA (2.4:1) — usa um taupe mais escuro. */
+  color: #524c40;
 }
 
 .panorama-select .panorama-note {
@@ -3575,10 +3577,19 @@ main,
 .cta-accent {
   color: #ffffff;
 }
-/* Ficha técnica do projeto (Local/Ano/Área/Categoria) — valor em --ink
-   (escuro) ficava ilegível sobre o vídeo de fundo escuro. */
+/* Ficha técnica do projeto (Local/Ano/Área/Categoria) — rótulo em --accent e
+   valor em --ink (ambos escuros) ficavam ilegíveis sobre o vídeo de fundo
+   escuro. */
+.project-facts dt {
+  color: #cdbfa8;
+}
 .project-facts dd {
   color: rgba(244, 241, 234, 0.92);
+}
+/* Corpo do texto do projeto (parágrafos de descrição) — usava --muted
+   (tom acastanhado p/ fundo claro), quase ilegível sobre o vídeo escuro. */
+.project-body p {
+  color: rgba(244, 241, 234, 0.8);
 }
 /* Labels de formulário no escuro. */
 .form-field label,
