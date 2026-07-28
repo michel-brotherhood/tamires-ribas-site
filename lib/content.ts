@@ -417,6 +417,14 @@ export const PROJECTS: Project[] = [
       "/projetos/apartamento-niteroi-03.webp",
       "/projetos/apartamento-niteroi-04.webp",
       "/projetos/apartamento-niteroi-05.webp",
+      "/projetos/apartamento-niteroi-06.webp",
+      "/projetos/apartamento-niteroi-07.webp",
+      "/projetos/apartamento-niteroi-08.webp",
+      "/projetos/apartamento-niteroi-09.webp",
+      "/projetos/apartamento-niteroi-10.webp",
+      "/projetos/apartamento-niteroi-11.webp",
+      "/projetos/apartamento-niteroi-12.webp",
+      "/projetos/apartamento-niteroi-13.webp",
     ],
   },
   {
@@ -438,6 +446,8 @@ export const PROJECTS: Project[] = [
       "/projetos/apartamento-santa-rosa-02.webp",
       "/projetos/apartamento-santa-rosa-03.webp",
       "/projetos/apartamento-santa-rosa-04.webp",
+      "/projetos/apartamento-santa-rosa-05.webp",
+      "/projetos/apartamento-santa-rosa-06.webp",
     ],
   },
   {
