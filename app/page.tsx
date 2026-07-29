@@ -14,15 +14,15 @@ export default function Home() {
         {/* Container 1200 (igual ao do header) → o texto alinha com a logo. */}
         <div className="home-hero-inner">
           <div className="home-hero-text">
-            <span className="section-index">Arquitetura e Interiores de Alto Padrão</span>
+            <span className="section-index">TR Arquitetura e Interiores - Residenciais</span>
             <h1 className="headline">
               Muito Além
               <br />
               de um <em>Projeto.</em>
             </h1>
             <p className="body-text">
-              Projetos residenciais de alto padrão que refletem personalidade,
-              conforto e atemporalidade — pela arquiteta Tamires Ribas.
+              Projetos residenciais guiados por escolhas inteligentes,
+              atemporais e feitas para durar.
             </p>
             <FrameButton href="https://wa.me/5521964362282" external className="btn-glow">
               Falar com a Arquiteta
@@ -50,12 +50,10 @@ export default function Home() {
               Muito além de um <em>projeto.</em>
             </h2>
             <p className="body-text">
-              Fundado há mais de 10 anos pela arquiteta Tamires Ribas, o
-              escritório TR Arquitetura e Interiores é especializado em projetos
-              residenciais de alto padrão. &ldquo;T&rdquo; e &ldquo;R&rdquo;
-              resumem iniciais que valorizam o relacionamento transparente e
-              humano, alinhando o desenvolvimento projetual ao que é essencial
-              para o morador.
+              Há mais de 14 anos, a TR Arquitetura e Interiores cria projetos
+              residenciais guiados por escolhas inteligentes, atemporais e
+              personalizadas. Cada projeto é pensado para refletir quem você
+              é, valorizar seu patrimônio e permanecer atual por muitos anos.
             </p>
           </div>
         </div>

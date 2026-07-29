@@ -9,7 +9,7 @@ import WhatsAppWidget from "@/components/WhatsAppWidget";
 export const metadata: Metadata = {
   title: "Sobre — TR Arquitetura e Interiores",
   description:
-    "Escritório da arquiteta Tamires Ribas, há mais de 10 anos em projetos residenciais de alto padrão. Conheça nossa essência, valores e missão.",
+    "Escritório da arquiteta Tamires Ribas, há mais de 14 anos em projetos residenciais de alto padrão. Conheça nossa essência, valores e missão.",
 };
 
 export default function SobrePage() {
@@ -26,12 +26,10 @@ export default function SobrePage() {
               Muito além de um <em>projeto.</em>
             </h1>
             <p className="body-text mt-6">
-              Fundado há mais de 10 anos pela arquiteta Tamires Ribas, o
-              escritório TR Arquitetura e Interiores é especializado em projetos
-              residenciais de alto padrão. &ldquo;T&rdquo; e &ldquo;R&rdquo;
-              resumem iniciais que valorizam o relacionamento transparente e
-              humano, alinhando o desenvolvimento projetual ao que é essencial
-              para o morador.
+              Há mais de 14 anos, a TR Arquitetura e Interiores cria projetos
+              residenciais guiados por escolhas inteligentes, atemporais e
+              personalizadas. Cada projeto é pensado para refletir quem você
+              é, valorizar seu patrimônio e permanecer atual por muitos anos.
             </p>
             <p className="about-hero-sign">
               Tamires Ribas — Arquiteta responsável
